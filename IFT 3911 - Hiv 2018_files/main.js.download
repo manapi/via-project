@@ -1,0 +1,26 @@
+
+function toggleNav() {
+    var elem = $('nav ul');
+    if (elem.css('display') == 'block')
+        elem.css('display', 'none');
+    else elem.css('display', 'block');
+}
+
+function togglePubSort(lang) {
+    var typeTxt = 'Sort by type', yearTxt = 'Sort by year';
+    if (lang == 'fr') {
+      typeTxt = 'Trier par type';
+      yearTxt = 'Trier par an';
+    }
+    var byType = $('#PubByType'), byYear = $('#PubByYear'), span = $('#sort_pub');
+    if (byType.is(':visible')) {
+        byType.css('display', 'none');
+        byYear.css('display', 'block');
+        span.text(typeTxt);
+    }
+    else {
+        byType.css('display', 'block');
+        byYear.css('display', 'none');
+        span.text(yearTxt);
+    }
+}
