@@ -11,4 +11,7 @@ public class EntiteVoyage {
 		return this.id;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
 }

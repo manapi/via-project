@@ -10,4 +10,11 @@ public abstract class Station extends EntiteVoyage implements Visitable {
 		super(id);
 		this.ville = ville;
 	}
+	
+	public String getVille() {
+		return ville;
+	}
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
 }

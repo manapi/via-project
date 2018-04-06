@@ -6,23 +6,27 @@ import misc.Database;
 
 public class ModifierCompagnie extends ModifierEntiteVoyage {
 
-	/**
-	 * 
-	 * @param fabrique
-	 * @param id
-	 */
-	public ModifierCompagnie() {
-		
+	private String newId;
+	private String oldId;
+	
+	public ModifierCompagnie(Database db, Compagnie entite, String newId) {
+		super(db, entite);
+		this.newId = newId;
+		this.oldId = entiteVoyage.getId();
 	}
 
 	public void execute() {
-		// TODO - implement ModifierCompagnie.execute
-		throw new UnsupportedOperationException();
+		entiteVoyage.setId(newId);
+		
+		db.removeCompagnie(oldId);
+		db.setCompagnie((Compagnie)entiteVoyage);
 	}
 
 	public void cancel() {
-		// TODO - implement ModifierCompagnie.cancel
-		throw new UnsupportedOperationException();
+		entiteVoyage.setId(oldId);
+		
+		db.removeCompagnie(newId);
+		db.setCompagnie((Compagnie)entiteVoyage);
 	}
 
 }
