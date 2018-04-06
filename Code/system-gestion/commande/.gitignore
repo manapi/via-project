@@ -1,0 +1,15 @@
+/SupprimerEntiteVoyage.class
+/SupprimerItineraire.class
+/SupprimerStation.class
+/SupprimerCompagnie.class
+/ModifierCompagnie.class
+/ModifierEntiteVoyage.class
+/ModifierItineraire.class
+/ModifierStation.class
+/CreerCompagnie.class
+/CreerEntiteVoyage.class
+/CreerItineraire.class
+/CreerSection.class
+/CreerStation.class
+/Commande.class
+/AssignerPrix.class

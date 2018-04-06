@@ -1,0 +1,17 @@
+/Itineraire.class
+/Compagnie.class
+/Place.class
+/Station.class
+/EntiteVoyage.class
+/Section.class
+/Visitable.class
+/FabriqueEntiteVoyage.class
+/IdSingleton.class
+/ItineraireSingleton.class
+/StationSingleton.class
+/CompagnieSingleton.class
+/Etat.class
+/EtatConfirme.class
+/EtatDisponible.class
+/EtatReserve.class
+/Passeport.class
