@@ -1,5 +1,6 @@
 package commande;
 import core.FabriqueEntiteVoyage;
+import misc.Database;
 
 public class CreerStation extends CreerEntiteVoyage {
 
@@ -11,19 +12,18 @@ public class CreerStation extends CreerEntiteVoyage {
 	 * @param id
 	 * @param ville
 	 */
-	public CreerStation(FabriqueEntiteVoyage fabrique, String id, String ville) {
-		// TODO - implement CreerStation.CreerStation
+	public CreerStation(Database db, FabriqueEntiteVoyage fabrique, String id, String ville) {
+		super(db, fabrique, id);
+		this.ville = ville;
 		throw new UnsupportedOperationException();
 	}
 
 	public void execute() {
-		// TODO - implement CreerStation.execute
-		throw new UnsupportedOperationException();
+		db.setStation(fabrique.creerStation(id, ville));
 	}
 
 	public void cancel() {
-		// TODO - implement CreerStation.cancel
-		throw new UnsupportedOperationException();
+		db.removeStation(id);
 	}
 
 }

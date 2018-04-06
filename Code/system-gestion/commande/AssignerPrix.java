@@ -1,31 +1,24 @@
 package commande;
-import core.Place;
+import core.Itineraire;
 
 public class AssignerPrix implements Commande {
 
-	private Place place;
-	private double tarif;
-	private double prixInitial;
+	private Itineraire itineraire;
+	private double newPrix;
+	private double oldPrix;
 
-	/**
-	 * 
-	 * @param rangee
-	 * @param colonne
-	 * @param tarif
-	 */
-	public AssignerPrix(int rangee, String colonne, double tarif) {
-		// TODO - implement AssignerPrix.AssignerPrix
-		throw new UnsupportedOperationException();
+	public AssignerPrix(Itineraire itineraire, int prix) {
+		this.itineraire = itineraire;
+		this.newPrix = prix;
+		this.oldPrix = itineraire.getPrix();
 	}
 
 	public void execute() {
-		// TODO - implement AssignerPrix.execute
-		throw new UnsupportedOperationException();
+		this.itineraire.setPrix(newPrix);
 	}
 
 	public void cancel() {
-		// TODO - implement AssignerPrix.cancel
-		throw new UnsupportedOperationException();
+		this.itineraire.setPrix(oldPrix);
 	}
 
 }

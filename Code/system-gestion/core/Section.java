@@ -1,4 +1,5 @@
 package core;
+import misc.Visitable;
 import misc.Visitor;
 
 public abstract class Section implements Visitable {

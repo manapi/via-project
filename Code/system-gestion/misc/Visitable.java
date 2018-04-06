@@ -1,5 +1,4 @@
-package core;
-import misc.Visitor;
+package misc;
 
 public interface Visitable {
 

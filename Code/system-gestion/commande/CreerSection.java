@@ -1,9 +1,10 @@
 package commande;
+import core.Itineraire;
 import core.Section;
 
 public class CreerSection implements Commande {
 
-	private FabriqueSection fabrique;
+	private Itineraire itineraire;
 	private String idItineraire;
 	private Section section;
 
@@ -12,7 +13,8 @@ public class CreerSection implements Commande {
 	 * @param fabrique
 	 * @param idItineraire
 	 */
-	public CreerSection(FabriqueSection fabrique, String idItineraire) {
+	public CreerSection(Itineraire itineraire, String type) {
+		this.itineraire = itineraire;
 		// TODO - implement CreerSection.CreerSection
 		throw new UnsupportedOperationException();
 	}

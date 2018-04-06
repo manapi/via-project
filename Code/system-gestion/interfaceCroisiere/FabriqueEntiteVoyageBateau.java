@@ -1,18 +1,33 @@
 package interfaceCroisiere;
+import java.sql.Time;
+import java.util.Date;
+import java.util.List;
+
 import core.Compagnie;
 import core.FabriqueEntiteVoyage;
 import core.Itineraire;
 import core.Station;
+import interfaceTrain.FabriqueEntiteVoyageTrain;
 
 public class FabriqueEntiteVoyageBateau extends FabriqueEntiteVoyage {
 
+	private static FabriqueEntiteVoyageBateau instance; 
+	
+	private FabriqueEntiteVoyageBateau(){};
+	
+	public static FabriqueEntiteVoyageBateau getInstance() {
+        if (instance == null) {
+        	instance = new FabriqueEntiteVoyageBateau();
+        }
+        return instance;
+    }
+	
 	/**
 	 * 
 	 * @param id
 	 */
 	public Compagnie creerCompagnie(String id) {
-		// TODO - implement FabriqueEntiteVoyageBateau.creerCompagnie
-		throw new UnsupportedOperationException();
+		return new CompagnieCroisiere(id);
 	}
 
 	/**
@@ -21,13 +36,13 @@ public class FabriqueEntiteVoyageBateau extends FabriqueEntiteVoyage {
 	 * @param ville
 	 */
 	public Station creerStation(String id, String ville) {
-		// TODO - implement FabriqueEntiteVoyageBateau.creerStation
-		throw new UnsupportedOperationException();
+		return new Port(id, ville);
 	}
 
-	public Itineraire creerItineraire() {
-		// TODO - implement FabriqueEntiteVoyageBateau.creerItineraire
-		throw new UnsupportedOperationException();
+	@Override
+	public Itineraire creerItineraire(String id, Date dateDepart, Time heureDepart, Time heureArrivee, Time duree,
+			Compagnie compagnie, List<Station> arrets) {
+		return new ItineraireCroisiere(id, dateDepart, heureDepart, heureArrivee,duree, compagnie, arrets);
 	}
 
 }

@@ -3,8 +3,9 @@ import java.util.*;
 
 import core.Passeport;
 import core.Place;
-import core.Visitable;
+import misc.Database;
 import misc.Observer;
+import misc.Visitable;
 import misc.Visitor;
 import paiement.CarteCredit;
 import reservation.Reservation;
@@ -18,6 +19,12 @@ public class Client implements Observer, Visitor, Visitable {
 	private String courriel;
 	private String telephone;
 	private Date dateNaissance;
+	
+	private Database db;
+	
+	public Client(Database db) {
+	  this.db = db;
+	}
 
 	/**
 	 * 

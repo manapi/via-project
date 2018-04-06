@@ -1,8 +1,13 @@
 package commande;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import core.Compagnie;
+import core.FabriqueEntiteVoyage;
+import core.Station;
+import misc.Database;
 
 public class CreerItineraire extends CreerEntiteVoyage {
 
@@ -11,9 +16,10 @@ public class CreerItineraire extends CreerEntiteVoyage {
 	private Time heureArrivee;
 	private Time duree;
 	private Compagnie compagnie;
-	private int numero;
-	private double prix;
-	private int placesDisponibles;
+	private List<Station> arrets;
+	//private int numero;
+	//private double prix;
+	//private int placesDisponibles;
 
 	/**
 	 * 
@@ -25,19 +31,23 @@ public class CreerItineraire extends CreerEntiteVoyage {
 	 * @param prix
 	 * @param placesDisponibles
 	 */
-	public CreerItineraire(Date dateDepart, Time heureDepart, Time heureArrivee, Time duree, Compagnie numero, double prix, int placesDisponibles) {
-		// TODO - implement CreerItineraire.CreerItineraire
-		throw new UnsupportedOperationException();
+	public CreerItineraire(Database db, FabriqueEntiteVoyage fabrique, String id, Date dateDepart, Time heureDepart, Time heureArrivee, Time duree, Compagnie compagnie, List<Station> arrets) {
+		super(db, fabrique, id);
+		this.dateDepart = dateDepart;
+		this.heureDepart = heureDepart;
+		this.heureArrivee = heureArrivee;
+		this.duree = duree;
+		this.compagnie = compagnie;
+		this.arrets = new ArrayList<Station>(arrets);
+		//TODO numero, prix, places??
 	}
 
 	public void execute() {
-		// TODO - implement CreerItineraire.execute
-		throw new UnsupportedOperationException();
+		db.setItineraire(fabrique.creerItineraire(id, dateDepart, heureDepart, heureArrivee, duree, compagnie, arrets));
 	}
 
 	public void cancel() {
-		// TODO - implement CreerItineraire.cancel
-		throw new UnsupportedOperationException();
+		db.removeItineraire(id);
 	}
 
 }

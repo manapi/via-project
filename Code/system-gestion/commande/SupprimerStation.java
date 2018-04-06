@@ -1,23 +1,27 @@
 package commande;
+
+import core.EntiteVoyage;
+import core.Station;
+import misc.Database;
+
 public class SupprimerStation extends SupprimerEntiteVoyage {
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public SupprimerStation(String id) {
-		// TODO - implement SupprimerStation.SupprimerStation
-		throw new UnsupportedOperationException();
+	public SupprimerStation(Database db, EntiteVoyage entite) {
+		super(db, entite);
 	}
 
 	public void execute() {
-		// TODO - implement SupprimerStation.execute
-		throw new UnsupportedOperationException();
+		db.removeStation(entiteVoyage.getId());
 	}
 
 	public void cancel() {
-		// TODO - implement SupprimerStation.cancel
-		throw new UnsupportedOperationException();
+		if(entiteVoyage instanceof Station) {
+			db.setStation((Station)entiteVoyage);
+		}
 	}
 
 }

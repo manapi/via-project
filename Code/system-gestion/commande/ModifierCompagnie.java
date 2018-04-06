@@ -1,5 +1,8 @@
 package commande;
+import core.Compagnie;
+import core.EntiteVoyage;
 import core.FabriqueEntiteVoyage;
+import misc.Database;
 
 public class ModifierCompagnie extends ModifierEntiteVoyage {
 
@@ -8,9 +11,8 @@ public class ModifierCompagnie extends ModifierEntiteVoyage {
 	 * @param fabrique
 	 * @param id
 	 */
-	public ModifierCompagnie(FabriqueEntiteVoyage fabrique, String id) {
-		// TODO - implement ModifierCompagnie.ModifierCompagnie
-		throw new UnsupportedOperationException();
+	public ModifierCompagnie() {
+		
 	}
 
 	public void execute() {

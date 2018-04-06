@@ -13,6 +13,16 @@ public class Database implements Subject {
 	private HashMap<String, Station> stations;
 	private HashMap<String, Itineraire> itineraires;
 
+	public Database() {
+		reservations = new HashMap<Integer, Reservation>();
+		compagnies = new HashMap<String, Compagnie>();
+		stations = new HashMap<String, Station>();
+		itineraires = new HashMap<String, Itineraire>();
+		
+		//TODO : add default objects
+				
+	}
+	
 	/**
 	 * 
 	 * @param observer
@@ -49,7 +59,7 @@ public class Database implements Subject {
 	 * 
 	 * @param numero
 	 */
-	public Reservation getReservations(int numero) {
+	public Reservation getReservation(int numero) {
 		// TODO - implement Database.getReservations
 		throw new UnsupportedOperationException();
 	}
@@ -59,7 +69,7 @@ public class Database implements Subject {
 	 * @param numero
 	 * @param reservation
 	 */
-	public void setReservations(int numero, Reservation reservation) {
+	public void setReservation(int numero, Reservation reservation) {
 		// TODO - implement Database.setReservations
 		throw new UnsupportedOperationException();
 	}
@@ -68,27 +78,28 @@ public class Database implements Subject {
 	 * 
 	 * @param id
 	 */
-	public Compagnie getCompagnies(String id) {
-		// TODO - implement Database.getCompagnies
-		throw new UnsupportedOperationException();
+	public Compagnie getCompagnie(String id) {
+		return compagnies.get(id);
 	}
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public void setCompagnies(String id) {
-		// TODO - implement Database.setCompagnies
-		throw new UnsupportedOperationException();
+	public void setCompagnie(Compagnie compagnie) {
+		compagnies.put(compagnie.getId(), compagnie);
+	}
+	
+	public void removeCompagnie(String id) {
+		compagnies.remove(id);
 	}
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public Station getStations(String id) {
-		// TODO - implement Database.getStations
-		throw new UnsupportedOperationException();
+	public Station getStation(String id) {
+		return stations.get(id);
 	}
 
 	/**
@@ -96,18 +107,20 @@ public class Database implements Subject {
 	 * @param id
 	 * @param station
 	 */
-	public void setStations(String id, Station station) {
-		// TODO - implement Database.setStations
-		throw new UnsupportedOperationException();
+	public void setStation(Station station) {
+		stations.put(station.getId(), station);
+	}
+	
+	public void removeStation(String id) {
+		stations.remove(id);
 	}
 
 	/**
 	 * 
 	 * @param ide
 	 */
-	public HashMap<String, Itineraire> Itineraire(String ide) {
-		// TODO - implement Database.Itineraire
-		throw new UnsupportedOperationException();
+	public Itineraire getItineraire(String id) {
+		return itineraires.get(id);
 	}
 
 	/**
@@ -115,9 +128,12 @@ public class Database implements Subject {
 	 * @param id
 	 * @param itineraire
 	 */
-	public void setItineraires(String id, Itineraire itineraire) {
-		// TODO - implement Database.setItineraires
-		throw new UnsupportedOperationException();
+	public void setItineraire(Itineraire itineraire) {
+		itineraires.put(itineraire.getId(), itineraire);
+	}
+	
+	public void removeItineraire(String id) {
+		itineraires.remove(id);
 	}
 
 }

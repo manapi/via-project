@@ -1,15 +1,20 @@
 package commande;
 import core.EntiteVoyage;
+import misc.Database;
 
-public class SupprimerEntiteVoyage implements Commande {
+public abstract class SupprimerEntiteVoyage implements Commande {
 
 	protected EntiteVoyage entiteVoyage;
-	protected String id;
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	protected Database db;
+	
+	public SupprimerEntiteVoyage(Database db, EntiteVoyage entite) {
+		this.db = db;
+		this.entiteVoyage = entite;
 	}
+	
+	@Override
+	public abstract void execute();
+	
 	@Override
 	public void cancel() {
 		// TODO Auto-generated method stub
