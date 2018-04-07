@@ -12,7 +12,7 @@ import reservation.Reservation;
 public class Client implements Observer, Visitor, Visitable {
 
 	Passeport passeport;
-	List<CarteCredit> carteCredits;
+	CarteCredit carteCredit;
 	private String nom;
 	private String adresse;
 	private String courriel;
@@ -31,15 +31,14 @@ public class Client implements Observer, Visitor, Visitable {
 		this.courriel = courriel;
 		this.telephone = telephone;
 		this.dateNaissance = dateNaissance;
-		carteCredits = new ArrayList<CarteCredit>();
 	}
 	
 	public void setPasseport(int numero,Date dateExpiration) {
 		this.passeport = new Passeport(numero, dateExpiration);
 	}
 	
-	public void addCarteCredit(int numero, Date dateExpiration, double creditDisponible, double limiteCredit) {
-		carteCredits.add(new CarteCredit(numero, dateExpiration, creditDisponible, limiteCredit));
+	public void setCarteCredit(int numero, Date dateExpiration, double creditDisponible, double limiteCredit) {
+		this.carteCredit = new CarteCredit(numero, dateExpiration, creditDisponible, limiteCredit);
 	}
 
 	/**
@@ -62,7 +61,7 @@ public class Client implements Observer, Visitor, Visitable {
 		
 		Reservation reservation = db.getReservation(noReservation);
 		double montant = reservation.getPlace().getPrix();
-		boolean isPaid = carteCredits.get(0).charger(montant);
+		boolean isPaid = carteCredit.charger(montant);
 		if(isPaid) {
 			//TODO : set place confirme
 		}
@@ -92,7 +91,7 @@ public class Client implements Observer, Visitor, Visitable {
 		
 		Reservation reservation = db.getReservation(noReservation);
 		if(true /*siege confirme*/) {
-			carteCredits.get(0).rembourser(reservation.getPlace().getPrix()*0.90);
+			carteCredit.rembourser(reservation.getPlace().getPrix()*0.90);
 		}
 		//TODO : set siege disponible
 		db.removeReservation(noReservation);

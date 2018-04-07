@@ -1,4 +1,5 @@
 package admin;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -85,18 +86,29 @@ public class Administrateur implements Observer, Visitable {
 		lastCmd.execute();
 	}
 	
-	public void creerVol(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
-		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageAvion.getInstance(), id, dateDepart, dateArrivee, compagnie, arrets);
+	public void creerVol(String id, Date dateDepart, Date dateArrivee, String compagnie, String aeroportDepart, String aeroportArrivee) {
+		List<Station> arrets = new ArrayList<Station>();
+		arrets.add(db.getStation(aeroportDepart));
+		arrets.add(db.getStation(aeroportArrivee));
+		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageAvion.getInstance(), id, dateDepart, dateArrivee, db.getCompagnie(compagnie), arrets);
 		lastCmd.execute();
 	}
 	
-	public void creerItineraireTrain(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
-		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageTrain.getInstance(), id, dateDepart, dateArrivee, compagnie, arrets);
+	public void creerItineraireTrain(String id, Date dateDepart, Date dateArrivee, String compagnie, List<String> gares) {
+		List<Station> arrets = new ArrayList<Station>();
+		for(String gare : gares) {
+			arrets.add(db.getStation(gare));
+		}
+		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageTrain.getInstance(), id, dateDepart, dateArrivee, db.getCompagnie(compagnie), arrets);
 		lastCmd.execute();
 	}
 	
-	public void creerItineraireCroisiere(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
-		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageBateau.getInstance(), id, dateDepart, dateArrivee, compagnie, arrets);
+	public void creerItineraireCroisiere(String id, Date dateDepart, Date dateArrivee, String compagnie, List<String> ports) {
+		List<Station> arrets = new ArrayList<Station>();
+		for(String port : ports) {
+			arrets.add(db.getStation(port));
+		}
+		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageBateau.getInstance(), id, dateDepart, dateArrivee, db.getCompagnie(compagnie), arrets);
 		lastCmd.execute();
 	}
 	
@@ -123,38 +135,42 @@ public class Administrateur implements Observer, Visitable {
 		lastCmd.execute();
 	}
 	
-	public void modifierCompagnie(Compagnie compagnie, String newId) {
-		lastCmd = new ModifierCompagnie(db, compagnie, newId);
+	public void modifierCompagnie(String id, String newId) {
+		lastCmd = new ModifierCompagnie(db, db.getCompagnie(id), newId);
 		lastCmd.execute();
 	}
 	
-	public void modifierStation(Station station, String id, String ville) {
-		lastCmd = new ModifierStation(db, station, id, ville);
+	public void modifierStation(String id, String newId, String ville) {
+		lastCmd = new ModifierStation(db, db.getStation(id), newId, ville);
 		lastCmd.execute();
 	}
 	
-	public void modifierItineraire(Itineraire itineraire, String newId, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
-		lastCmd = new ModifierItineraire(db, itineraire, newId, dateDepart, dateArrivee, compagnie, arrets);
+	public void modifierItineraire(String id, String newId, Date dateDepart, Date dateArrivee, String compagnie, List<String> newArrets) {
+		List<Station> arrets = new ArrayList<Station>();
+		for(String arr : newArrets) {
+			arrets.add(db.getStation(arr));
+		}
+		lastCmd = new ModifierItineraire(db, db.getItineraire(id), newId, dateDepart, dateArrivee, db.getCompagnie(compagnie), arrets);
 		lastCmd.execute();
 	}
 	
-	public void supprimerCompagnie(Compagnie compagnie) {
-		lastCmd = new SupprimerCompagnie(db, compagnie);
+	public void supprimerCompagnie(String id) {
+		lastCmd = new SupprimerCompagnie(db, db.getCompagnie(id));
 		lastCmd.execute();
 	}
 	
-	public void supprimerStation(Station station) {
-		lastCmd = new SupprimerStation(db, station);
+	public void supprimerStation(String id) {
+		lastCmd = new SupprimerStation(db, db.getStation(id));
 		lastCmd.execute();
 	}
 	
-	public void supprimerItineraire(Itineraire itineraire) {
-		lastCmd = new SupprimerItineraire(db, itineraire);
+	public void supprimerItineraire(String id) {
+		lastCmd = new SupprimerItineraire(db, db.getItineraire(id));
 		lastCmd.execute();
 	}
 	
-	public void assignerPrix(Itineraire itineraire, double prix) {
-		lastCmd = new AssignerPrix(itineraire, prix);
+	public void assignerPrix(String id, double prix) {
+		lastCmd = new AssignerPrix(db.getItineraire(id), prix);
 		lastCmd.execute();
 	}
 	
