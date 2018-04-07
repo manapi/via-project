@@ -4,6 +4,7 @@ public abstract class Place {
 
 	protected Etat etat;
 	protected Section section;
+	protected Itineraire itineraire;
 	
 	protected Place(Section section) {
 		this.section = section;
@@ -31,6 +32,10 @@ public abstract class Place {
 	 */
 	public void setSection(Section section) {
 		this.section = section;
+	}
+	
+	public double getPrix() {
+		return itineraire.getPrix() * (section.getPourcentageTarif() /100);
 	}
 
 }

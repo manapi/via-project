@@ -1,10 +1,15 @@
-package core;
+package client;
 import java.util.Date;
 
 public class Passeport {
 
 	private int numero;
 	private Date dateExpiration;
+	
+	public Passeport(int numero, Date dateExpiration) {
+		this.numero = numero;
+		this.dateExpiration = dateExpiration;
+	}
 
 	public int getNumero() {
 		return this.numero;
@@ -26,9 +31,8 @@ public class Passeport {
 	 * 
 	 * @param dateExpiration
 	 */
-	public void setDateExpiration(int dateExpiration) {
-		// TODO - implement Passeport.setDateExpiration
-		throw new UnsupportedOperationException();
+	public void setDateExpiration(Date dateExpiration) {
+		this.dateExpiration = dateExpiration;
 	}
 
 }

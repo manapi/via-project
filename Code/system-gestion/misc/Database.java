@@ -60,8 +60,7 @@ public class Database implements Subject {
 	 * @param numero
 	 */
 	public Reservation getReservation(int numero) {
-		// TODO - implement Database.getReservations
-		throw new UnsupportedOperationException();
+		return reservations.get(numero);
 	}
 
 	/**
@@ -69,11 +68,14 @@ public class Database implements Subject {
 	 * @param numero
 	 * @param reservation
 	 */
-	public void setReservation(int numero, Reservation reservation) {
-		// TODO - implement Database.setReservations
-		throw new UnsupportedOperationException();
+	public void setReservation(Reservation reservation) {
+		reservations.put(reservation.getNumero(), reservation);
 	}
 
+	public void removeReservation(int numero) {
+		reservations.remove(numero);
+	}
+	
 	/**
 	 * 
 	 * @param id

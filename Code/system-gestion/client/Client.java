@@ -1,7 +1,6 @@
 package client;
 import java.util.*;
 
-import core.Passeport;
 import core.Place;
 import misc.Database;
 import misc.Observer;
@@ -13,7 +12,7 @@ import reservation.Reservation;
 public class Client implements Observer, Visitor, Visitable {
 
 	Passeport passeport;
-	Collection<CarteCredit> carteCredit;
+	List<CarteCredit> carteCredits;
 	private String nom;
 	private String adresse;
 	private String courriel;
@@ -25,41 +24,78 @@ public class Client implements Observer, Visitor, Visitable {
 	public Client(Database db) {
 	  this.db = db;
 	}
+	
+	public void setClientInfo(String nom, String adresse, String courriel, String telephone, Date dateNaissance) {
+		this.nom = nom;
+		this.adresse = adresse;
+		this.courriel = courriel;
+		this.telephone = telephone;
+		this.dateNaissance = dateNaissance;
+		carteCredits = new ArrayList<CarteCredit>();
+	}
+	
+	public void setPasseport(int numero,Date dateExpiration) {
+		this.passeport = new Passeport(numero, dateExpiration);
+	}
+	
+	public void addCarteCredit(int numero, Date dateExpiration, double creditDisponible, double limiteCredit) {
+		carteCredits.add(new CarteCredit(numero, dateExpiration, creditDisponible, limiteCredit));
+	}
 
 	/**
 	 * 
 	 * @param place
 	 */
-	public void reserver(Place place) {
-		// TODO - implement Client.reserver
-		throw new UnsupportedOperationException();
+	public int reserver(Place place) {
+		// TODO : check if place disponible
+		Reservation reservation = new Reservation(new Date(), place);
+		// TODO : set place reserve
+		db.setReservation(reservation);
+		return reservation.getNumero();
 	}
 
 	/**
 	 * 
 	 * @param reservation
 	 */
-	public void confirmer(Reservation reservation) {
-		// TODO - implement Client.confirmer
-		throw new UnsupportedOperationException();
+	public boolean confirmer(int noReservation) {
+		
+		Reservation reservation = db.getReservation(noReservation);
+		double montant = reservation.getPlace().getPrix();
+		boolean isPaid = carteCredits.get(0).charger(montant);
+		if(isPaid) {
+			//TODO : set place confirme
+		}
+		return isPaid;
+
 	}
 
 	/**
 	 * 
 	 * @param reservation
 	 */
-	public void modifier(Reservation reservation) {
-		// TODO - implement Client.modifier
-		throw new UnsupportedOperationException();
+	public void modifier(int noReservation, Place newPlace) {
+		
+		Reservation reservation = db.getReservation(noReservation);
+		if(true /*siege confirme*/) {
+			// adjust payment
+		} 
+		reservation.setPlace(newPlace);
+		// TODO - update place etat
 	}
 
 	/**
 	 * 
 	 * @param parameter
 	 */
-	public void annuler(Reservation parameter) {
-		// TODO - implement Client.annuler
-		throw new UnsupportedOperationException();
+	public void annuler(int noReservation) {
+		
+		Reservation reservation = db.getReservation(noReservation);
+		if(true /*siege confirme*/) {
+			carteCredits.get(0).rembourser(reservation.getPlace().getPrix()*0.90);
+		}
+		//TODO : set siege disponible
+		db.removeReservation(noReservation);
 	}
 
 	@Override

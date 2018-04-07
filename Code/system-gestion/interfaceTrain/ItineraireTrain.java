@@ -56,4 +56,9 @@ public class ItineraireTrain extends Itineraire {
 		}
 	}
 
+	@Override
+	public int getNombrePlaces(String section) {
+		return train.getNombrePlaces(section);
+	}
+
 }

@@ -3,6 +3,8 @@ package interfaceVol;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.Section;
+
 public class Avion {
 	private List<SectionAvion> sections;
 
@@ -17,5 +19,14 @@ public class Avion {
 	
 	public void removeSection(SectionAvion section) {
 		sections.remove(section);
+	}
+	
+	public int getNombrePlaces(String section) {
+		for(Section s : sections) {
+			if(s.getType().equalsIgnoreCase(section)) {
+				return s.getNombrePlaces();
+			}
+		}
+		return 0;
 	}
 }

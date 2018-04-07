@@ -78,7 +78,17 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 	
 	public abstract void supprimerSection(Section section);
 	
-	public int getNombrePlacesDisponibles() {
-		return this.placesDisponibles;
+	public abstract int getNombrePlaces(String section);
+	
+	public List<Place> getPlacesDisponibles(String section) {
+		List<Place> dispos = new ArrayList<Place>();
+		if(places.containsKey(section)) {
+			for(Place place : places.get(section)) {
+				if(true /*place is disponible*/) {
+					dispos.add(place);
+				}
+			}
+		}
+		return dispos;
 	}
 }

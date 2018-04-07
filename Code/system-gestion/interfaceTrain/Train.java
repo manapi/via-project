@@ -3,6 +3,8 @@ package interfaceTrain;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.Section;
+
 
 public class Train {
 	private List<SectionTrain> sections;
@@ -18,5 +20,14 @@ public class Train {
 	
 	public void removeSection(SectionTrain section) {
 		sections.remove(section);
+	}
+	
+	public int getNombrePlaces(String section) {
+		for(Section s : sections) {
+			if(s.getType().equalsIgnoreCase(section)) {
+				return s.getNombrePlaces();
+			}
+		}
+		return 0;
 	}
 }

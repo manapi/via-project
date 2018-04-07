@@ -53,4 +53,9 @@ public class Vol extends Itineraire {
 		}
 	}
 
+	@Override
+	public int getNombrePlaces(String section) {
+		return avion.getNombrePlaces(section);
+	}
+
 }

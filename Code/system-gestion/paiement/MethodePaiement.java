@@ -7,7 +7,7 @@ public abstract class MethodePaiement {
 	 * 
 	 * @param montant
 	 */
-	public abstract void charger(double montant);
+	public abstract boolean charger(double montant);
 
 	/**
 	 * 

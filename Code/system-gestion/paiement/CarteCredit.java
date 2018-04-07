@@ -7,14 +7,26 @@ public class CarteCredit extends MethodePaiement {
 	private double limiteCredit;
 	private int numero;
 	private Date dateExpiration;
+	
+	public CarteCredit(int numero, Date dateExpiration, double creditDisponible, double limiteCredit) {
+		this.numero = numero;
+		this.dateExpiration = dateExpiration;
+		this.creditDisponible = creditDisponible;
+		this.limiteCredit = limiteCredit;
+		
+		this.balance = 0;
+	}
 
 	/**
 	 * 
 	 * @param montant
 	 */
-	public void charger(double montant) {
-		// TODO - implement CarteCredit.charger
-		throw new UnsupportedOperationException();
+	public boolean charger(double montant) {
+		if(montant <= creditDisponible && balance + montant <= limiteCredit) {
+			creditDisponible -= montant;
+			balance += montant;
+			return true;
+		} else return false;
 	}
 
 	/**
@@ -22,8 +34,8 @@ public class CarteCredit extends MethodePaiement {
 	 * @param montant
 	 */
 	public void rembourser(double montant) {
-		// TODO - implement CarteCredit.rembourser
-		throw new UnsupportedOperationException();
+		balance -= montant;
+		creditDisponible = montant + creditDisponible < limiteCredit ? montant + creditDisponible : limiteCredit;
 	}
 
 }

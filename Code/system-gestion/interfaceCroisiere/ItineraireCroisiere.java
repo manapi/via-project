@@ -53,4 +53,9 @@ public class ItineraireCroisiere extends Itineraire {
 		}
 	}
 
+	@Override
+	public int getNombrePlaces(String section) {
+		return paquebot.getNombrePlaces(section);
+	}
+
 }
