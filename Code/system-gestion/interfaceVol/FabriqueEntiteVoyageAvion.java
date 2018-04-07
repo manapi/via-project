@@ -6,6 +6,7 @@ import java.util.List;
 import core.Compagnie;
 import core.FabriqueEntiteVoyage;
 import core.Itineraire;
+import core.Section;
 import core.Station;
 
 public class FabriqueEntiteVoyageAvion extends FabriqueEntiteVoyage {
@@ -42,6 +43,21 @@ public class FabriqueEntiteVoyageAvion extends FabriqueEntiteVoyage {
 	public Itineraire creerItineraire(String id, Date dateDepart, Date dateArrivee,
 			Compagnie compagnie, List<Station> arrets) {
 		return new Vol(id, dateDepart, dateArrivee, compagnie, arrets);
+	}
+
+	@Override
+	public Section creerSection(String type) {
+		switch(type.toUpperCase()) {
+		case "F" :
+			return new AirF();
+		case "A" :
+			return new AirA();
+		case "E" : 
+			return new AirE();
+		case "P" :
+			return new AirP();
+		}
+		return null;
 	}
 
 }

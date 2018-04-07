@@ -6,6 +6,10 @@ public class TrainE extends SectionTrain {
 		super(nbRangees, disposition);
 		this.pourcentageTarif = 50;
 	}
+	
+	public TrainE() {
+		this(0, null);
+	}
 	@Override
 	public String getType() {
 		return "E";

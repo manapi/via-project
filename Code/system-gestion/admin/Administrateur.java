@@ -19,10 +19,17 @@ import core.FabriqueEntiteVoyage;
 import core.Itineraire;
 import core.Section;
 import core.Station;
+import interfaceCroisiere.FabriqueEntiteVoyageBateau;
+import interfaceCroisiere.SectionPaquebot;
+import interfaceTrain.DispoSiegeTrain;
+import interfaceTrain.FabriqueEntiteVoyageTrain;
+import interfaceTrain.SectionTrain;
+import interfaceTrain.TrainE;
 import interfaceVol.AirE;
 import interfaceVol.AirM;
 import interfaceVol.DispoSiegeAvion;
 import interfaceVol.FabriqueEntiteVoyageAvion;
+import interfaceVol.SectionAvion;
 import misc.Database;
 import misc.Observer;
 import misc.Visitable;
@@ -32,11 +39,9 @@ public class Administrateur implements Observer, Visitable {
 
 	private Database db;
 	private Commande lastCmd;
-	private FabriqueEntiteVoyage fabrique;
 	
 	public Administrateur(Database db) {
 		this.db = db;
-		this.fabrique = FabriqueEntiteVoyageAvion.getInstance();
 	}
 	
 	@Override
@@ -50,26 +55,71 @@ public class Administrateur implements Observer, Visitable {
 		// TODO Auto-generated method stub
 		
 	}
-	public void creerCompagnie(String id) {
-		lastCmd = new CreerCompagnie(db, fabrique, id);
+	public void creerCompagnieAerienne(String id) {
+		lastCmd = new CreerCompagnie(db, FabriqueEntiteVoyageAvion.getInstance(), id);
 		lastCmd.execute();
 	}
 	
-	public void creerStation(String id, String ville) {
-		lastCmd = new CreerStation(db, fabrique, id, ville);
+	public void creerLigneTrain(String id) {
+		lastCmd = new CreerCompagnie(db, FabriqueEntiteVoyageTrain.getInstance(), id);
 		lastCmd.execute();
 	}
 	
-	public void creerItineraire(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
-		lastCmd = new CreerItineraire(db, fabrique, id, dateDepart, dateArrivee, compagnie, arrets);
+	public void creerCompagnieCroisiere(String id) {
+		lastCmd = new CreerCompagnie(db, FabriqueEntiteVoyageBateau.getInstance(), id);
+		lastCmd.execute();
+	}
+	
+	public void creerAeroport(String id, String ville) {
+		lastCmd = new CreerStation(db, FabriqueEntiteVoyageAvion.getInstance(), id, ville);
+		lastCmd.execute();
+	}
+	
+	public void creerGare(String id, String ville) {
+		lastCmd = new CreerStation(db, FabriqueEntiteVoyageTrain.getInstance(), id, ville);
+		lastCmd.execute();
+	}
+	
+	public void creerPort(String id, String ville) {
+		lastCmd = new CreerStation(db, FabriqueEntiteVoyageBateau.getInstance(), id, ville);
+		lastCmd.execute();
+	}
+	
+	public void creerVol(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
+		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageAvion.getInstance(), id, dateDepart, dateArrivee, compagnie, arrets);
+		lastCmd.execute();
+	}
+	
+	public void creerItineraireTrain(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
+		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageTrain.getInstance(), id, dateDepart, dateArrivee, compagnie, arrets);
+		lastCmd.execute();
+	}
+	
+	public void creerItineraireCroisiere(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
+		lastCmd = new CreerItineraire(db, FabriqueEntiteVoyageBateau.getInstance(), id, dateDepart, dateArrivee, compagnie, arrets);
 		lastCmd.execute();
 	}
 	
 	public void creerSectionAvion(String idVol, String type, String disposition, int nbRangees) {
-		//TODO : temporary hardcoded
-		DispoSiegeAvion dispo = new AirM();
-		Section section = new AirE(nbRangees, dispo);
-		lastCmd = new CreerSection(db.getItineraire(idVol), section);
+		SectionAvion sec = (SectionAvion)FabriqueEntiteVoyageAvion.getInstance().creerSection(type);
+		sec.setDisposition(disposition);
+		sec.setNombreRangees(nbRangees);
+		lastCmd = new CreerSection(db.getItineraire(idVol), sec);
+		lastCmd.execute();
+	}
+	
+	public void creerSectionTrain(String idTrain, String type, String disposition, int nbRangees) {
+		SectionTrain sec = (SectionTrain)FabriqueEntiteVoyageTrain.getInstance().creerSection(type);
+		sec.setDisposition(disposition);
+		sec.setNombreRangees(nbRangees);
+		lastCmd = new CreerSection(db.getItineraire(idTrain), sec);
+		lastCmd.execute();
+	}
+	
+	public void creerSectionPaquebot(String idCroisiere, String type, int nbCabines) {
+		SectionPaquebot sec = (SectionPaquebot)FabriqueEntiteVoyageBateau.getInstance().creerSection(type);
+		sec.setNombreCabines(nbCabines);
+		lastCmd = new CreerSection(db.getItineraire(idCroisiere), sec);
 		lastCmd.execute();
 	}
 	

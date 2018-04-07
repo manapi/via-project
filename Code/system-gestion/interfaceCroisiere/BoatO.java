@@ -7,6 +7,11 @@ public class BoatO extends SectionPaquebot {
 		this.pourcentageTarif = 75;
 		this.maxPersonnes = 2;
 	}
+	
+	public BoatO() {
+		this(0);
+	}
+	
 	@Override
 	public String getType() {
 		return "O";

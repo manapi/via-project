@@ -6,6 +6,7 @@ import java.util.List;
 import core.Compagnie;
 import core.FabriqueEntiteVoyage;
 import core.Itineraire;
+import core.Section;
 import core.Station;
 import interfaceTrain.FabriqueEntiteVoyageTrain;
 
@@ -44,5 +45,23 @@ public class FabriqueEntiteVoyageBateau extends FabriqueEntiteVoyage {
 			Compagnie compagnie, List<Station> arrets) {
 		return new ItineraireCroisiere(id, dateDepart, dateArrivee, compagnie, arrets);
 	}
+
+	@Override
+	public Section creerSection(String type) {
+		switch(type.toUpperCase()) {
+		case "D" :
+			return new BoatD();
+		case "F" :
+			return new BoatF();
+		case "I" :
+			return new BoatI();
+		case "O" :
+			return new BoatO();
+		case "S" :
+			return new BoatS();
+		}
+		return null;
+	}
+	
 
 }

@@ -5,7 +5,12 @@ import java.util.List;
 import core.Compagnie;
 import core.FabriqueEntiteVoyage;
 import core.Itineraire;
+import core.Section;
 import core.Station;
+import interfaceVol.AirA;
+import interfaceVol.AirE;
+import interfaceVol.AirF;
+import interfaceVol.AirP;
 
 public class FabriqueEntiteVoyageTrain extends FabriqueEntiteVoyage {
 
@@ -41,6 +46,17 @@ public class FabriqueEntiteVoyageTrain extends FabriqueEntiteVoyage {
 	public Itineraire creerItineraire(String id, Date dateDepart, Date dateArrivee,
 			Compagnie compagnie, List<Station> arrets) {
 		return new ItineraireTrain(id, dateDepart, dateArrivee, compagnie, arrets);
+	}
+
+	@Override
+	public Section creerSection(String type) {
+		switch(type.toUpperCase()) {
+		case "E" : 
+			return new TrainE();
+		case "P" :
+			return new TrainP();
+		}
+		return null;
 	}
 
 }

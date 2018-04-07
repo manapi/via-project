@@ -15,6 +15,27 @@ public abstract class SectionAvion extends Section {
 		return nombreRangees;
 	}
 	
+	public void setNombreRangees(int nombreRangees) {
+		this.nombreRangees = nombreRangees;
+	}
+	
+	public void setDisposition(String type) {
+		switch(type.toUpperCase()) {
+		case "C" :
+			this.disposition = new AirC();
+			break;
+		case "L" :
+			this.disposition = new AirL();
+			break;
+		case "M" :
+			this.disposition = new AirM();
+			break;
+		case "S" :
+			this.disposition = new AirS();
+			break;
+		}
+	}
+	
 	public int getNombreColonnes() {
 		return disposition.getNombreColonne();
 	}
@@ -22,4 +43,5 @@ public abstract class SectionAvion extends Section {
 	public int getNombrePlaces() {
 		return disposition.getNombreColonne() * nombreRangees;
 	}
+	
 }

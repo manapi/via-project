@@ -16,4 +16,8 @@ public abstract class SectionPaquebot extends Section {
 	public int getNombrePlaces() {
 		return nbCabines;
 	}
+	
+	public void setNombreCabines(int nbCabines) {
+		this.nbCabines = nbCabines;
+	}
 }

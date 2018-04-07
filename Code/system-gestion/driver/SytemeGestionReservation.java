@@ -60,7 +60,7 @@ public class SytemeGestionReservation {
 		}*/
 		
 		// Testing commandes
-		admin.creerStation("AAA", "London");
+		admin.creerAeroport("AAA", "London");
 		System.out.println(db.getStation("AAA").getVille());
 		
 		/*admin.cancel();
@@ -79,10 +79,10 @@ public class SytemeGestionReservation {
 		}
 		admin.cancel();
 		System.out.println(db.getStation("AAA").getId());
-		admin.creerCompagnie("CCC");
+		admin.creerCompagnieAerienne("CCC");
 		List<Station> arrets = new ArrayList<Station>();
 		arrets.add(db.getStation("AAA"));
-		admin.creerItineraire("AAA000", new Date(0), new Date(0), db.getCompagnie("CCC"), arrets);
+		admin.creerVol("AAA000", new Date(0), new Date(0), db.getCompagnie("CCC"), arrets);
 		admin.assignerPrix(db.getItineraire("AAA000"), 100);
 		System.out.println(db.getItineraire("AAA000").getPrix());
 		admin.cancel();

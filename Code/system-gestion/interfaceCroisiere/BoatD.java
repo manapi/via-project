@@ -7,6 +7,10 @@ public class BoatD extends SectionPaquebot {
 		this.pourcentageTarif = 100;
 		this.maxPersonnes = 6;
 	}
+	
+	public BoatD() {
+		this(0);
+	}
 
 	@Override
 	public String getType() {

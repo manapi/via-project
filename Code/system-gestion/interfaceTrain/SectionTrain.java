@@ -16,6 +16,16 @@ public abstract class SectionTrain extends Section {
 		return nombreRangees;
 	}
 	
+	public void setNombreRangees(int nombreRangees) {
+		this.nombreRangees = nombreRangees;
+	}
+	
+	public void setDisposition(String type) {
+		if(type.toUpperCase() == "S") {
+			this.disposition = new TrainS();
+		}
+	}
+	
 	public int getNombreColonnes() {
 		return disposition.getNombreColonne();
 	}

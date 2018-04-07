@@ -21,4 +21,6 @@ public abstract class FabriqueEntiteVoyage {
 
 	public abstract Itineraire creerItineraire(String id, Date dateDepart, Date dateArrivee, 
 			Compagnie compagnie, List<Station> arrets);
+	
+	public abstract Section creerSection(String type);
 }

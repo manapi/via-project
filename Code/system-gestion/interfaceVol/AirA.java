@@ -6,6 +6,11 @@ public class AirA extends SectionAvion {
 		super(nbRangees, disposition);
 		this.pourcentageTarif = 75;
 	}
+	
+	public AirA() {
+		this(0, null);
+	}
+	
 	@Override
 	public String getType() {
 		return "A";

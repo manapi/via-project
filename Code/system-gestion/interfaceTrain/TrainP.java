@@ -6,6 +6,9 @@ public class TrainP extends SectionTrain {
 		super(nbRangees, disposition);
 		this.pourcentageTarif = 60;
 	}
+	public TrainP() {
+		this(0, null);
+	}
 	@Override
 	public String getType() {
 		return "P";
