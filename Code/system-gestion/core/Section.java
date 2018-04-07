@@ -18,5 +18,9 @@ public abstract class Section implements Visitable {
 	public int getPourcentageTarif() {
 		return pourcentageTarif;
 	}
+	
+	public abstract int getNombrePlaces();
+	
+	public abstract String getType();
 
 }

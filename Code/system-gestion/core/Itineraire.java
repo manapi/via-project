@@ -2,7 +2,9 @@ package core;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import misc.Visitable;
 
@@ -14,7 +16,7 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 	//protected int numero;
 	protected double prix;
 	protected int placesDisponibles;
-	protected List<Place> places;
+	protected Map<String, List<Place>> places;
 	protected List<Station> arrets;
 	
 	public Itineraire(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
@@ -27,6 +29,7 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 		//TODO :
 		this.prix = -1;
 		this.placesDisponibles = 0;
+		this.places = new HashMap<String, List<Place>>();
 	}
 	
 	public double getPrix() {
@@ -69,5 +72,13 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 	}
 	public void setArrets(List<Station> arrets) {
 		this.arrets = arrets;
+	}
+	
+	public abstract void creerSection(Section section);
+	
+	public abstract void supprimerSection(Section section);
+	
+	public int getNombrePlacesDisponibles() {
+		return this.placesDisponibles;
 	}
 }

@@ -6,6 +6,7 @@ import commande.AssignerPrix;
 import commande.Commande;
 import commande.CreerCompagnie;
 import commande.CreerItineraire;
+import commande.CreerSection;
 import commande.CreerStation;
 import commande.ModifierCompagnie;
 import commande.ModifierItineraire;
@@ -16,7 +17,11 @@ import commande.SupprimerStation;
 import core.Compagnie;
 import core.FabriqueEntiteVoyage;
 import core.Itineraire;
+import core.Section;
 import core.Station;
+import interfaceVol.AirE;
+import interfaceVol.AirM;
+import interfaceVol.DispoSiegeAvion;
 import interfaceVol.FabriqueEntiteVoyageAvion;
 import misc.Database;
 import misc.Observer;
@@ -57,6 +62,14 @@ public class Administrateur implements Observer, Visitable {
 	
 	public void creerItineraire(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
 		lastCmd = new CreerItineraire(db, fabrique, id, dateDepart, dateArrivee, compagnie, arrets);
+		lastCmd.execute();
+	}
+	
+	public void creerSectionAvion(String idVol, String type, String disposition, int nbRangees) {
+		//TODO : temporary hardcoded
+		DispoSiegeAvion dispo = new AirM();
+		Section section = new AirE(nbRangees, dispo);
+		lastCmd = new CreerSection(db.getItineraire(idVol), section);
 		lastCmd.execute();
 	}
 	

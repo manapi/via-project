@@ -5,7 +5,6 @@ import core.Section;
 public class CreerSection implements Commande {
 
 	private Itineraire itineraire;
-	private String idItineraire;
 	private Section section;
 
 	/**
@@ -13,20 +12,17 @@ public class CreerSection implements Commande {
 	 * @param fabrique
 	 * @param idItineraire
 	 */
-	public CreerSection(Itineraire itineraire, String type) {
+	public CreerSection(Itineraire itineraire, Section section) {
 		this.itineraire = itineraire;
-		// TODO - implement CreerSection.CreerSection
-		throw new UnsupportedOperationException();
+		this.section = section;
 	}
 
 	public void execute() {
-		// TODO - implement CreerSection.execute
-		throw new UnsupportedOperationException();
+		this.itineraire.creerSection(section);
 	}
 
 	public void cancel() {
-		// TODO - implement CreerSection.cancel
-		throw new UnsupportedOperationException();
+		this.itineraire.supprimerSection(section);
 	}
 
 }

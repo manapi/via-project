@@ -14,4 +14,8 @@ public class Avion {
 		//TODO : check type of section is unique
 		sections.add(section);
 	}
+	
+	public void removeSection(SectionAvion section) {
+		sections.remove(section);
+	}
 }

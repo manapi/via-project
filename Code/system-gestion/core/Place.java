@@ -4,6 +4,10 @@ public abstract class Place {
 
 	protected Etat etat;
 	protected Section section;
+	
+	protected Place(Section section) {
+		this.section = section;
+	}
 
 	public Etat getEtat() {
 		return this.etat;

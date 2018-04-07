@@ -1,5 +1,4 @@
 package interfaceTrain;
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -7,8 +6,6 @@ import core.Compagnie;
 import core.FabriqueEntiteVoyage;
 import core.Itineraire;
 import core.Station;
-import interfaceVol.FabriqueEntiteVoyageAvion;
-import interfaceVol.Vol;
 
 public class FabriqueEntiteVoyageTrain extends FabriqueEntiteVoyage {
 

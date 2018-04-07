@@ -87,6 +87,11 @@ public class SytemeGestionReservation {
 		System.out.println(db.getItineraire("AAA000").getPrix());
 		admin.cancel();
 		System.out.println(db.getItineraire("AAA000").getPrix());
+		
+		admin.creerSectionAvion("AAA000", "E", "M", 5);
+		System.out.println(db.getItineraire("AAA000").getNombrePlacesDisponibles());
+		admin.cancel();
+		System.out.println(db.getItineraire("AAA000").getNombrePlacesDisponibles());
 	}
 
 }

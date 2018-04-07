@@ -19,5 +19,9 @@ public abstract class SectionTrain extends Section {
 	public int getNombreColonnes() {
 		return disposition.getNombreColonne();
 	}
+	
+	public int getNombrePlaces() {
+		return disposition.getNombreColonne() * nombreRangees;
+	}
 
 }

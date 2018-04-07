@@ -6,4 +6,8 @@ public class AirF extends SectionAvion {
 		super(nbRangees, disposition);
 		this.pourcentageTarif = 100;
 	}
+	@Override
+	public String getType() {
+		return "F";
+	}
 }

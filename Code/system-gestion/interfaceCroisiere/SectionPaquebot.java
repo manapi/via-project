@@ -12,4 +12,8 @@ public abstract class SectionPaquebot extends Section {
 	public int getMaxPersonnes(){
 		return maxPersonnes;
 	}
+	
+	public int getNombrePlaces() {
+		return nbCabines;
+	}
 }
