@@ -6,7 +6,7 @@ import misc.Database;
 
 public class SupprimerCompagnie extends SupprimerEntiteVoyage {
 
-	public SupprimerCompagnie(Database db, EntiteVoyage entite) {
+	public SupprimerCompagnie(Database db, Compagnie entite) {
 		super(db, entite);
 	}
 

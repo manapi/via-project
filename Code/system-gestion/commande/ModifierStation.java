@@ -1,5 +1,4 @@
 package commande;
-import core.FabriqueEntiteVoyage;
 import core.Station;
 import misc.Database;
 
@@ -40,7 +39,7 @@ public class ModifierStation extends ModifierEntiteVoyage {
 		station.setId(oldId);
 		station.setVille(oldVille);
 		
-		if(!newId.equalsIgnoreCase(newId)) {
+		if(!newId.equalsIgnoreCase(oldId)) {
 			db.removeStation(newId);
 			db.setStation(station);
 		}

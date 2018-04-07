@@ -12,9 +12,7 @@ import misc.Database;
 public class CreerItineraire extends CreerEntiteVoyage {
 
 	private Date dateDepart;
-	private Time heureDepart;
-	private Time heureArrivee;
-	private Time duree;
+	private Date dateArrivee;
 	private Compagnie compagnie;
 	private List<Station> arrets;
 	//private int numero;
@@ -31,19 +29,16 @@ public class CreerItineraire extends CreerEntiteVoyage {
 	 * @param prix
 	 * @param placesDisponibles
 	 */
-	public CreerItineraire(Database db, FabriqueEntiteVoyage fabrique, String id, Date dateDepart, Time heureDepart, Time heureArrivee, Time duree, Compagnie compagnie, List<Station> arrets) {
+	public CreerItineraire(Database db, FabriqueEntiteVoyage fabrique, String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
 		super(db, fabrique, id);
 		this.dateDepart = dateDepart;
-		this.heureDepart = heureDepart;
-		this.heureArrivee = heureArrivee;
-		this.duree = duree;
+		this.dateArrivee = dateArrivee;
 		this.compagnie = compagnie;
 		this.arrets = new ArrayList<Station>(arrets);
-		//TODO numero, prix, places??
 	}
 
 	public void execute() {
-		db.setItineraire(fabrique.creerItineraire(id, dateDepart, heureDepart, heureArrivee, duree, compagnie, arrets));
+		db.setItineraire(fabrique.creerItineraire(id, dateDepart, dateArrivee, compagnie, arrets));
 	}
 
 	public void cancel() {

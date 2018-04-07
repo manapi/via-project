@@ -19,6 +19,6 @@ public abstract class FabriqueEntiteVoyage {
 	 */
 	public abstract Station creerStation(String id, String ville);
 
-	public abstract Itineraire creerItineraire(String id, Date dateDepart, Time heureDepart, 
-			Time heureArrivee, Time duree, Compagnie compagnie, List<Station> arrets);
+	public abstract Itineraire creerItineraire(String id, Date dateDepart, Date dateArrivee, 
+			Compagnie compagnie, List<Station> arrets);
 }

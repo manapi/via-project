@@ -39,9 +39,9 @@ public class FabriqueEntiteVoyageAvion extends FabriqueEntiteVoyage {
 	}
 
 	@Override
-	public Itineraire creerItineraire(String id, Date dateDepart, Time heureDepart, Time heureArrivee, Time duree,
+	public Itineraire creerItineraire(String id, Date dateDepart, Date dateArrivee,
 			Compagnie compagnie, List<Station> arrets) {
-		return new Vol(id, dateDepart, heureDepart, heureArrivee,duree, compagnie, arrets);
+		return new Vol(id, dateDepart, dateArrivee, compagnie, arrets);
 	}
 
 }

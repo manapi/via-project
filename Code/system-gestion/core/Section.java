@@ -4,7 +4,7 @@ import misc.Visitor;
 
 public abstract class Section implements Visitable {
 
-	protected double pourcentageTaric;
+	protected int pourcentageTarif;
 
 	/**
 	 * 
@@ -13,6 +13,10 @@ public abstract class Section implements Visitable {
 	public void accept(Visitor visitor) {
 		// TODO - implement Section.accept
 		throw new UnsupportedOperationException();
+	}
+	
+	public int getPourcentageTarif() {
+		return pourcentageTarif;
 	}
 
 }

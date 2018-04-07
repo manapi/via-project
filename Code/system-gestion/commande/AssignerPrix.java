@@ -7,7 +7,7 @@ public class AssignerPrix implements Commande {
 	private double newPrix;
 	private double oldPrix;
 
-	public AssignerPrix(Itineraire itineraire, int prix) {
+	public AssignerPrix(Itineraire itineraire, double prix) {
 		this.itineraire = itineraire;
 		this.newPrix = prix;
 		this.oldPrix = itineraire.getPrix();

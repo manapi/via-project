@@ -10,7 +10,7 @@ public class SupprimerStation extends SupprimerEntiteVoyage {
 	 * 
 	 * @param id
 	 */
-	public SupprimerStation(Database db, EntiteVoyage entite) {
+	public SupprimerStation(Database db, Station entite) {
 		super(db, entite);
 	}
 

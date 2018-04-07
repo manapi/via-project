@@ -11,7 +11,7 @@ public class SupprimerItineraire extends SupprimerEntiteVoyage {
 	 * 
 	 * @param id
 	 */
-	public SupprimerItineraire(Database db, EntiteVoyage entite) {
+	public SupprimerItineraire(Database db, Itineraire entite) {
 		super(db, entite);
 	}
 

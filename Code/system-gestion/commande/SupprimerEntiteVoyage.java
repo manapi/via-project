@@ -16,9 +16,5 @@ public abstract class SupprimerEntiteVoyage implements Commande {
 	public abstract void execute();
 	
 	@Override
-	public void cancel() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public abstract void cancel();
 }

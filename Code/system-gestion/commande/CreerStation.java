@@ -15,7 +15,6 @@ public class CreerStation extends CreerEntiteVoyage {
 	public CreerStation(Database db, FabriqueEntiteVoyage fabrique, String id, String ville) {
 		super(db, fabrique, id);
 		this.ville = ville;
-		throw new UnsupportedOperationException();
 	}
 
 	public void execute() {

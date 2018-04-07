@@ -9,9 +9,7 @@ import misc.Visitable;
 public abstract class Itineraire extends EntiteVoyage implements Visitable {
 
 	protected Date dateDepart;
-	protected Time heureDepart;
-	protected Time heureArrivee;
-	protected Time duree;
+	protected Date dateArrivee;
 	protected Compagnie compagnie;
 	//protected int numero;
 	protected double prix;
@@ -19,13 +17,10 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 	protected List<Place> places;
 	protected List<Station> arrets;
 	
-	public Itineraire(String id, Date dateDepart, Time heureDepart, Time heureArrivee,
-		Time duree, Compagnie compagnie, List<Station> arrets) {
+	public Itineraire(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
 		super(id);
 		this.dateDepart = dateDepart;
-		this.heureDepart = heureDepart;
-		this.heureArrivee = heureArrivee;
-		this.duree = duree;
+		this.dateArrivee = dateArrivee;
 		this.compagnie = compagnie;
 		this.arrets = new ArrayList<Station>(arrets);
 		
@@ -50,24 +45,19 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 	public void setDateDepart(Date date) {
 		this.dateDepart=date;
 	}
-	public Time getHeureDepart() {
-		return heureDepart;
+	
+	public Date getDateArrivee() {
+		return dateArrivee;
 	}
-	public void setHeureDepart(Time time) {
-		this.heureDepart=time;
+	public void setDateArrivee(Date date) {
+		this.dateArrivee=date;
 	}
-	public Time getHeureArrivee() {
-		return heureArrivee;
+	
+	public int getDuree() {
+		// TODO - implement CreerEntiteVoyage.execute
+		throw new UnsupportedOperationException();
 	}
-	public void setHeureArrivee(Time time) {
-		this.heureArrivee=time;
-	}
-	public Time getDuree() {
-		return duree;
-	}
-	public void setDuree(Time time) {
-		this.duree=time;
-	}
+
 	public Compagnie getCompagnie() {
 		return this.compagnie;
 	}

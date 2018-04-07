@@ -40,9 +40,9 @@ public class FabriqueEntiteVoyageBateau extends FabriqueEntiteVoyage {
 	}
 
 	@Override
-	public Itineraire creerItineraire(String id, Date dateDepart, Time heureDepart, Time heureArrivee, Time duree,
+	public Itineraire creerItineraire(String id, Date dateDepart, Date dateArrivee,
 			Compagnie compagnie, List<Station> arrets) {
-		return new ItineraireCroisiere(id, dateDepart, heureDepart, heureArrivee,duree, compagnie, arrets);
+		return new ItineraireCroisiere(id, dateDepart, dateArrivee, compagnie, arrets);
 	}
 
 }

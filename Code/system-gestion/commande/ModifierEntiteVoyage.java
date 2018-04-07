@@ -14,14 +14,8 @@ public abstract class ModifierEntiteVoyage implements Commande {
 		this.entiteVoyage = entite;
 	}
 
-	public void execute() {
-		// TODO - implement ModifierEntiteVoyage.execute
-		throw new UnsupportedOperationException();
-	}
+	public abstract void execute();
 
-	public void cancel() {
-		// TODO - implement ModifierEntiteVoyage.cancel
-		throw new UnsupportedOperationException();
-	}
+	public abstract void cancel();
 
 }

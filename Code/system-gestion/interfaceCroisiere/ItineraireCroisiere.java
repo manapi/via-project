@@ -11,10 +11,10 @@ import misc.Visitor;
 
 public class ItineraireCroisiere extends Itineraire {
 	
-	public ItineraireCroisiere(String id, Date dateDepart, Time heureDepart, Time heureArrivee,
-			Time duree, Compagnie compagnie, List<Station> arrets) {
+	public ItineraireCroisiere(String id, Date dateDepart, Date dateArrivee, 
+			Compagnie compagnie, List<Station> arrets) {
 			
-			super(id, dateDepart, heureDepart, heureArrivee,duree, compagnie, arrets);
+			super(id, dateDepart, dateArrivee, compagnie, arrets);
 	}
 
 	public void creerSection() {
