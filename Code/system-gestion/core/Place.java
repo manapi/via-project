@@ -16,6 +16,7 @@ public abstract class Place {
 	
 	protected Place(Section section) {
 		this.section = section;
+		etat = new EtatDisponible();
 	}
 
 	public Etat getEtat() {
