@@ -24,7 +24,7 @@ import interfaceVol.SectionAvion;
 import interfaceVol.Vol;
 import reservation.Reservation;
 
-public class Database implements Subject {
+public class Database implements Subject, Visitable {
 
 	private HashMap<Integer, Reservation> reservations;
 	private HashMap<String, Compagnie> compagnies;
