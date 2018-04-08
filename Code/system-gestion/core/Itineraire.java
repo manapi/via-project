@@ -102,47 +102,11 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 		List<Place> dispos = new ArrayList<Place>();
 		if(places.containsKey(section)) {
 			for(Place place : places.get(section)) {
-				if(true /*place is disponible*/) {
+				if(place.getEtat() instanceof EtatDisponible) {
 					dispos.add(place);
 				}
 			}
 		}
 		return dispos;
 	}
-	
-//	public String getrapportSiegesReserves(String section) {
-//		int totalSiege=0;
-//		int siegeReserve=0;
-//		int siegeDispo=0;
-//		String resultRapport="";
-//		if(places.containsKey(section)) {
-//			for(Place place : places.get(section)) {
-//				totalSiege++;
-//				if(true /*place is disponible*/) {
-//					siegeDispo++;
-//				}
-//			}
-//		}
-//		siegeReserve=totalSiege-siegeDispo;
-//		resultRapport=resultRapport+"("+Integer.toString(siegeReserve)+"/"+Integer.toString(totalSiege)+")";
-//		
-//		return resultRapport;
-//	}
-	
-
-	
-//	public String getQuantiteSiegesDispo(String section) {
-//		int siegeDispo=0;
-//		String resultQuantite="";
-//		if(places.containsKey(section)) {
-//			for(Place place : places.get(section)) {
-//				if(true /*place is disponible*/) {
-//					siegeDispo++;
-//				}
-//			}
-//		}
-//		resultQuantite=Integer.toString(siegeDispo);
-//		
-//		return resultQuantite;
-//	}
 }

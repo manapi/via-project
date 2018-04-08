@@ -18,6 +18,7 @@ public class Reservation {
 		this.numero = NEXT_NUMERO++;
 		this.dateCree = date;
 		this.place = place;
+		this.client = client;
 	}
 	public int getNumero() {
 		return this.numero;

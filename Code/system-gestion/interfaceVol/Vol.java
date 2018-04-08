@@ -34,7 +34,7 @@ public class Vol extends Itineraire {
 			List<Place> sieges = new ArrayList<Place>();
 			for(int i=0; i < secAv.getNombreRangees(); i++) {
 				for(int j=0; j< secAv.getNombreColonnes(); j++) {
-					sieges.add(new SiegeAvion(i, j, secAv));
+					sieges.add(new SiegeAvion(i, j, secAv, this));
 				}
 			}
 			places.put(section.getType(), sieges);
