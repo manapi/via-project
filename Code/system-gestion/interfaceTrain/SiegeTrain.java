@@ -1,5 +1,6 @@
 package interfaceTrain;
 import core.Place;
+import misc.Visitor;
 
 public class SiegeTrain extends Place {
 
@@ -21,6 +22,12 @@ public class SiegeTrain extends Place {
 			this.colonne = "C";
 			break;
 		}
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+		
 	}
 
 }

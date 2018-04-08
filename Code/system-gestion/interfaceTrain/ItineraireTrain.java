@@ -20,11 +20,17 @@ public class ItineraireTrain extends Itineraire {
 			
 			super(id, dateDepart, dateArrivee, compagnie, arrets);
 			train = new Train();
+			
+			this.arrets=arrets;
+			this.compagnie=compagnie;
+			this.id=id;
+			this.dateDepart=dateDepart;
+			this.dateArrivee=dateArrivee;
 	}
 
 	@Override
 	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
+		visitor.visit(this);
 		
 	}
 

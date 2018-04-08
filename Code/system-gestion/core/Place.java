@@ -1,10 +1,18 @@
 package core;
 
-public abstract class Place {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import misc.Visitable;
+import misc.Visitor;
+
+public abstract class Place implements Visitable {
 
 	protected Etat etat;
 	protected Section section;
 	protected Itineraire itineraire;
+
 	
 	protected Place(Section section) {
 		this.section = section;
@@ -21,10 +29,9 @@ public abstract class Place {
 	public void setEtat(Etat etat) {
 		this.etat = etat;
 	}
-
-	public Section getSection() {
-		return this.section;
-	}
+	
+	public Etat getetat(){return this.etat;}
+	
 
 	/**
 	 * 
@@ -34,8 +41,17 @@ public abstract class Place {
 		this.section = section;
 	}
 	
+	public Section getSection() {
+		return this.section;
+	}
+	
+	
 	public double getPrix() {
 		return itineraire.getPrix() * (section.getPourcentageTarif() /100);
 	}
+	
+	
+	public abstract void accept(Visitor visitor);
+	
 
 }

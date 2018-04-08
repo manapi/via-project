@@ -1,5 +1,6 @@
 package interfaceCroisiere;
 import core.Section;
+import misc.Visitor;
 
 public abstract class SectionPaquebot extends Section {
 	protected int maxPersonnes;
@@ -19,5 +20,9 @@ public abstract class SectionPaquebot extends Section {
 	
 	public void setNombreCabines(int nbCabines) {
 		this.nbCabines = nbCabines;
+	}
+	
+	public void accept(Visitor visitor){
+		visitor.visit(this);
 	}
 }

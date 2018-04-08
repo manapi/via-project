@@ -10,10 +10,10 @@ public abstract class Section implements Visitable {
 	 * 
 	 * @param visitor
 	 */
-	public void accept(Visitor visitor) {
-		// TODO - implement Section.accept
-		throw new UnsupportedOperationException();
-	}
+	public abstract void accept(Visitor visitor);
+
+
+	
 	
 	public int getPourcentageTarif() {
 		return pourcentageTarif;

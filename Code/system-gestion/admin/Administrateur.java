@@ -20,23 +20,29 @@ import core.FabriqueEntiteVoyage;
 import core.Itineraire;
 import core.Section;
 import core.Station;
+import interfaceCroisiere.Cabine;
 import interfaceCroisiere.FabriqueEntiteVoyageBateau;
+import interfaceCroisiere.ItineraireCroisiere;
 import interfaceCroisiere.SectionPaquebot;
 import interfaceTrain.DispoSiegeTrain;
 import interfaceTrain.FabriqueEntiteVoyageTrain;
+import interfaceTrain.ItineraireTrain;
 import interfaceTrain.SectionTrain;
+import interfaceTrain.SiegeTrain;
 import interfaceTrain.TrainE;
 import interfaceVol.AirE;
 import interfaceVol.AirM;
 import interfaceVol.DispoSiegeAvion;
 import interfaceVol.FabriqueEntiteVoyageAvion;
 import interfaceVol.SectionAvion;
+import interfaceVol.SiegeAvion;
+import interfaceVol.Vol;
 import misc.Database;
 import misc.Observer;
 import misc.Visitable;
 import misc.Visitor;
 
-public class Administrateur implements Observer, Visitable {
+public class Administrateur implements Observer, Visitor {
 
 	private Database db;
 	private Commande lastCmd;
@@ -45,11 +51,6 @@ public class Administrateur implements Observer, Visitable {
 		this.db = db;
 	}
 	
-	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void update(Object arg) {
@@ -180,4 +181,66 @@ public class Administrateur implements Observer, Visitable {
 			lastCmd = null;
 		}
 	}
+
+
+	//Patron de visiteur:
+		public String affichageAvion="";
+		public String affichageTrain="";
+		public String affichageBateau="";
+		public String section="";
+		public String disposition="";
+		public String prix="";
+		public String rapport="";
+
+		@Override
+		public void visit(Vol vol) {
+			affichageAvion=affichageAvion+(vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")";
+			rapport=rapport+(vol.getrapportSiegesReserves(section));
+		}
+
+		@Override
+		public void visit(ItineraireTrain itineraireTrain) {
+			affichageTrain=affichageTrain+(itineraireTrain.getArrets())+":"+"["+(itineraireTrain.getCompagnie())+"]"+(itineraireTrain.getId())+"("+(itineraireTrain.getDateDepart())+"-"+(itineraireTrain.getDateArrivee())+")";
+			rapport=rapport+(itineraireTrain.getrapportSiegesReserves(section));
+		}
+
+		@Override
+		public void visit(ItineraireCroisiere itineraireCroisiere) {
+			affichageBateau=affichageBateau+(itineraireCroisiere.getArrets())+":"+"["+(itineraireCroisiere.getCompagnie())+"]"+(itineraireCroisiere.getId())+"("+(itineraireCroisiere.getDateDepart())+"-"+(itineraireCroisiere.getDateArrivee())+")";
+			rapport=rapport+(itineraireCroisiere.getrapportSiegesReserves(section));
+		}
+		
+		@Override
+		public void visit(SiegeAvion siegeAvion) {
+			section=section+(siegeAvion.getSection());
+		}
+
+		@Override
+		public void visit(Cabine cabine) {
+			section=section+(cabine.getSection());
+		}
+
+		@Override
+		public void visit(SiegeTrain siegeTrain) {
+			section=section+(siegeTrain.getSection());
+		}
+
+		@Override
+		public void visit(SectionAvion sectionAvion) {
+			disposition=disposition+(sectionAvion.getDisposition());;
+			prix=prix+(sectionAvion.getPourcentageTarif());
+
+		}
+
+		@Override
+		public void visit(SectionTrain sectionTrain) {
+			disposition=disposition+(sectionTrain.getDisposition());
+			prix=prix+(sectionTrain.getPourcentageTarif());
+		}
+
+		@Override
+		public void visit(SectionPaquebot sectionPaquebot) {
+			prix=prix+(sectionPaquebot.getPourcentageTarif());
+		}
+		
 }

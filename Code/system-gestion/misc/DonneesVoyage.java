@@ -2,7 +2,7 @@ package misc;
 import java.sql.Time;
 import java.util.Date;
 
-public abstract class DonneesVoyage {
+public abstract class DonneesVoyage{
 
 	protected String idTrajet;
 	protected String idCompagnie;

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import misc.Visitable;
+import misc.Visitor;
 
 public abstract class Itineraire extends EntiteVoyage implements Visitable {
 
@@ -32,6 +33,10 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 		this.places = new HashMap<String, List<Place>>();
 	}
 	
+
+	public abstract void accept(Visitor visitor);
+
+		
 	public double getPrix() {
 		return prix;
 	}
@@ -41,6 +46,8 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 	}
 
 	//public abstract void addSection(Section section);
+	
+	
 	
 	public Date getDateDepart() {
 		return dateDepart;
@@ -90,5 +97,39 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 			}
 		}
 		return dispos;
+	}
+	
+	public String getrapportSiegesReserves(String section) {
+		int totalSiege=0;
+		int siegeReserve=0;
+		int siegeDispo=0;
+		String resultRapport="";
+		if(places.containsKey(section)) {
+			for(Place place : places.get(section)) {
+				totalSiege++;
+				if(true /*place is disponible*/) {
+					siegeDispo++;
+				}
+			}
+		}
+		siegeReserve=totalSiege-siegeDispo;
+		resultRapport=resultRapport+"("+Integer.toString(siegeReserve)+"/"+Integer.toString(totalSiege)+")";
+		
+		return resultRapport;
+	}
+	
+	public String getQuantiteSiegesDispo(String section) {
+		int siegeDispo=0;
+		String resultQuantite="";
+		if(places.containsKey(section)) {
+			for(Place place : places.get(section)) {
+				if(true /*place is disponible*/) {
+					siegeDispo++;
+				}
+			}
+		}
+		resultQuantite=Integer.toString(siegeDispo);
+		
+		return resultQuantite;
 	}
 }

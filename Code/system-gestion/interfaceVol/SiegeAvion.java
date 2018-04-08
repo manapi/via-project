@@ -1,5 +1,6 @@
 package interfaceVol;
 import core.Place;
+import misc.Visitor;
 
 public class SiegeAvion extends Place {
 
@@ -43,4 +44,9 @@ public class SiegeAvion extends Place {
 			break;
 		}
 	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+		}
 }

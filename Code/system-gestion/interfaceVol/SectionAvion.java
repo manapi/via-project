@@ -1,5 +1,6 @@
 package interfaceVol;
 import core.Section;
+import misc.Visitor;
 
 public abstract class SectionAvion extends Section {
 
@@ -36,12 +37,21 @@ public abstract class SectionAvion extends Section {
 		}
 	}
 	
+	public DispoSiegeAvion getDisposition(){
+		return this.disposition;	
+	}
+	
+	
 	public int getNombreColonnes() {
 		return disposition.getNombreColonne();
 	}
 	
 	public int getNombrePlaces() {
 		return disposition.getNombreColonne() * nombreRangees;
+	}
+	
+	public void accept(Visitor visitor){
+		visitor.visit(this);
 	}
 	
 }
