@@ -4,6 +4,7 @@ package reservation;
 import java.util.Date;
 
 import core.Place;
+import client.Client;
 
 public class Reservation {
 
@@ -11,8 +12,9 @@ public class Reservation {
 	private int numero;
 	private Date dateCree;
 	private Place place;
+	private Client client;
 
-	public Reservation(Date date, Place place) {
+	public Reservation(Date date, Place place, Client client) {
 		this.numero = NEXT_NUMERO++;
 		this.dateCree = date;
 		this.place = place;
@@ -39,6 +41,14 @@ public class Reservation {
 	
 	public void setPlace(Place place) {
 		this.place = place;
+	}
+	
+	public Client getClient() {
+		return client;
+	}
+	
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	/**

@@ -43,6 +43,7 @@ import misc.Database;
 import misc.Observer;
 import misc.Visitable;
 import misc.Visitor;
+import reservation.Reservation;
 
 public class Administrateur implements Observer, Visitor {
 
@@ -52,37 +53,102 @@ public class Administrateur implements Observer, Visitor {
 	public Administrateur(Database db) {
 		this.db = db;
 	}
-	
 
-	@Override
-	public void update(Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public String consulterItinerairesParCompagnie(String compagnie) {
-		sb = new StringBuilder();
-		for(Itineraire itin : db.getAllItineraires()) {
-			if(itin.getCompagnie().getId().equalsIgnoreCase(compagnie)) {
-				visit(itin);
-			}
-		}
-		return sb.toString();
-	}
-	
-	public String consulterItinerairesParStation(String station) {
-		sb = new StringBuilder();
-		for(Itineraire itin : db.getAllItineraires()) {
-			for(Station arret : itin.getArrets()) {
-				if(arret.getId().equalsIgnoreCase(station)) {
-					visit(itin);
-					break;
+	// Idole
+		@Override
+		public void update(Reservation reservation) {
+			// Verifie si la reservation existe dans la base de donnees
+			if (db.getReservation(reservation.getNumero()) != null) {
+				if (reservation.equals(db.getReservation(reservation.getNumero()))) {
+					System.out.println("La réservation "+reservation.getNumero()+" a été modifiée.");
+				}
+				else {
+					System.out.println("La réservation "+reservation.getNumero()+" a été annulée.");
 				}
 			}
+			else {
+				System.out.println("La réservation "+reservation.getNumero()+" a été ajoutée.");
+			}
+			//db.setReservation(reservation);
 		}
-		return sb.toString();
-	}
 	
+		// Idole
+		@Override
+		public void update(Compagnie compagnie) {
+			// Verifie si la compagnie existe dans la base de donnees
+			if (db.getCompagnie(compagnie.getId()) != null) {
+				if (compagnie.equals(db.getCompagnie(compagnie.getId()))) {
+					System.out.println("La compagnie "+compagnie.getId()+" a été modifiée.");
+				}
+				else {
+					System.out.println("La compagnie "+compagnie.getId()+" a été supprimée.");
+				}
+			}
+			else {
+				System.out.println("La compagnie "+compagnie.getId()+" a été ajoutée.");
+			}
+			//db.setCompagnie(compagnie);
+		}
+		
+		// Idole
+		@Override
+		public void update(Station station) {
+			// Verifie si la station existe dans la base de donnees
+			if (db.getStation(station.getId()) != null) {
+				if (station.equals(db.getStation(station.getId()))) {
+					System.out.println("La station "+station.getId()+" a été modifiée.");
+				}
+				else {
+					System.out.println("La station "+station.getId()+" a été supprimée.");
+				}
+			}
+			else {
+				System.out.println("La station "+station.getId()+" a été ajoutée.");
+			}
+			//db.setStation(station);
+		}
+		
+		// Idole
+		@Override
+		public void update(Itineraire itineraire) {
+			// Verifie si l'itineraire existe dans la base de donnees
+			if (db.getItineraire(itineraire.getId()) != null) {
+				if (itineraire.equals(db.getItineraire(itineraire.getId()))) {
+					System.out.println("L'itineraire "+itineraire.getId()+" a été modifié.");
+				}
+				else {
+					System.out.println("L'itineraire "+itineraire.getId()+" a été supprimé.");
+				}
+			}
+			else {
+				System.out.println("L'itineraire "+itineraire.getId()+" a été ajouté.");
+			}
+			//db.setItineraire(itineraire);
+		}
+		
+		public String consulterItinerairesParCompagnie(String compagnie) {
+			sb = new StringBuilder();
+			for(Itineraire itin : db.getAllItineraires()) {
+				if(itin.getCompagnie().getId().equalsIgnoreCase(compagnie)) {
+					visit(itin);
+				}
+			}
+			return sb.toString();
+		}
+		
+		public String consulterItinerairesParStation(String station) {
+			sb = new StringBuilder();
+			for(Itineraire itin : db.getAllItineraires()) {
+				for(Station arret : itin.getArrets()) {
+					if(arret.getId().equalsIgnoreCase(station)) {
+						visit(itin);
+						break;
+					}
+				}
+			}
+			return sb.toString();
+		}
+		
 	public void creerCompagnieAerienne(String id) {
 		lastCmd = new CreerCompagnie(db, FabriqueEntiteVoyageAvion.getInstance(), id);
 		lastCmd.execute();

@@ -24,7 +24,7 @@ import misc.Database;
 
 public class SytemeGestionReservation {
 
-	final private static String OPTION_PROMPT = "Entrer le numéro de l'option choisie : ";
+	final private static String OPTION_PROMPT = "Entrer le numï¿½ro de l'option choisie : ";
 	final private static String DATE_FORMAT = "yyyy.MM.dd:HH:mm";
 	private static SimpleDateFormat df;
 	private static Scanner scanner;
@@ -40,6 +40,8 @@ public class SytemeGestionReservation {
 		// TODO : command line UI
 		df = new SimpleDateFormat(DATE_FORMAT);
 		scanner = new Scanner(System.in);
+		db.registerObserver(cli);
+		db.registerObserver(admin);
 		boolean running = true;
 		
 		while(running) {
@@ -166,7 +168,7 @@ public class SytemeGestionReservation {
 				dateArrivee = df.parse(scanner.next());
 				System.out.print("Compagnie aerienne (id) : ");
 				compagnie = scanner.next();
-				System.out.print("Aeroport de départ (id) : ");
+				System.out.print("Aeroport de dï¿½part (id) : ");
 				String aeroportDepart = scanner.next();
 				System.out.print("Aeroport d'arrivee (id) : ");
 				String aeroportArrivee = scanner.next();

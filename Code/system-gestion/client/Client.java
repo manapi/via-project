@@ -5,6 +5,12 @@ import java.util.*;
 import core.Itineraire;
 import core.Place;
 import core.Section;
+import core.Compagnie;
+import core.EtatConfirme;
+import core.EtatDisponible;
+import core.EtatReserve;
+import core.Itineraire;
+import core.Place;
 import core.Station;
 import interfaceCroisiere.Cabine;
 import interfaceCroisiere.ItineraireCroisiere;
@@ -80,12 +86,22 @@ public class Client implements Observer, Visitor {
 	 * 
 	 * @param place
 	 */
-	public int reserver(Place place) {
-		// TODO : check if place disponible
-		Reservation reservation = new Reservation(new Date(), place);
-		// TODO : set place reserve
-		db.setReservation(reservation);
-		return reservation.getNumero();
+public int reserver(Place place) {
+		
+		Reservation reservation = null;
+		if (place.getEtat() instanceof EtatDisponible) {
+			reservation = new Reservation(new Date(), place, this);
+			db.setReservation(reservation);
+			EtatReserve etatReserve = new EtatReserve();
+			etatReserve.setEtat(place);
+			reservation.setPlace(place);
+		}
+		try {
+			return reservation.getNumero();
+		} catch(NullPointerException e) {
+			System.out.println("La place choisie est déjà réservée.");
+			return 0;
+		}
 	}
 
 	/**
@@ -94,12 +110,19 @@ public class Client implements Observer, Visitor {
 	 */
 	public boolean confirmer(int noReservation) {
 		
+		Boolean isPaid = false;
 		Reservation reservation = db.getReservation(noReservation);
-		double montant = reservation.getPlace().getPrix();
-		boolean isPaid = carteCredit.charger(montant);
-		if(isPaid) {
-			//TODO : set place confirme
-		}
+		// Verifie si la reservation est dans la base de donnees et si la place est reservee
+		if(reservation != null && reservation.getPlace().getEtat() instanceof EtatReserve) {
+			// adjust payment
+			double montant = reservation.getPlace().getPrix();
+			isPaid = carteCredit.charger(montant);
+			if(isPaid) {
+				EtatConfirme etatConfirm = new EtatConfirme();
+				etatConfirm.setEtat(reservation.getPlace());
+				reservation.setPlace(reservation.getPlace());
+			}
+		} 
 		return isPaid;
 
 	}
@@ -111,11 +134,28 @@ public class Client implements Observer, Visitor {
 	public void modifier(int noReservation, Place newPlace) {
 		
 		Reservation reservation = db.getReservation(noReservation);
-		if(true /*siege confirme*/) {
+		// Verifie si la reservation est dans la base de donnees et si la place est confirmee
+		if(reservation != null && reservation.getPlace().getEtat() instanceof EtatConfirme) {
 			// adjust payment
-		} 
-		reservation.setPlace(newPlace);
-		// TODO - update place etat
+			double oldPrix = reservation.getPlace().getPrix();
+			double newPrix = newPlace.getPrix();
+			double montant = Math.abs(newPrix-oldPrix);
+			if (newPrix > oldPrix) {
+				carteCredit.charger(montant);
+			}
+			else if (newPrix < oldPrix){
+				carteCredit.rembourser(montant);
+			}
+			EtatConfirme etatConfirme = new EtatConfirme();
+			etatConfirme.setEtat(newPlace);
+			reservation.setPlace(newPlace);
+		}
+		// Verifie si la reservation est dans la base de donnees et si la place est reservee
+		else if (reservation != null && reservation.getPlace().getEtat() instanceof EtatReserve) {
+			EtatReserve etatReserve = new EtatReserve();
+			etatReserve.setEtat(newPlace);
+			reservation.setPlace(newPlace);
+		}
 	}
 
 	/**
@@ -125,17 +165,58 @@ public class Client implements Observer, Visitor {
 	public void annuler(int noReservation) {
 		
 		Reservation reservation = db.getReservation(noReservation);
-		if(true /*siege confirme*/) {
+		// Verifie si la reservation est dans la base de donnees et si la place est confirmee
+		if(reservation != null && reservation.getPlace().getEtat() instanceof EtatConfirme) {
 			carteCredit.rembourser(reservation.getPlace().getPrix()*0.90);
+			EtatDisponible etatDispo = new EtatDisponible();
+			etatDispo.setEtat(db.getReservation(noReservation).getPlace());
+			db.removeReservation(noReservation);
 		}
-		//TODO : set siege disponible
-		db.removeReservation(noReservation);
+		// Verifie si la reservation est dans la base de donnees et si la place est reservee
+		else if (reservation != null && reservation.getPlace().getEtat() instanceof EtatReserve) {
+			EtatDisponible etatDispo = new EtatDisponible();
+			etatDispo.setEtat(db.getReservation(noReservation).getPlace());
+			db.removeReservation(noReservation);
+		}
 	}
 
-	@Override
-	public void update(Object arg) {
-		// TODO Auto-generated method stub
+	public void update(Reservation reservation) {
 		
+		Reservation oldReservation = db.getReservation(reservation.getNumero());
+		// Verifie si la nouvelle reservation est dans la base de donnees et si elle appartient au client
+		if (oldReservation != null && reservation.getClient().equals(this)) {
+			Place newPlace = reservation.getPlace();
+			if (newPlace.getEtat() instanceof EtatConfirme && oldReservation.getPlace().getEtat() instanceof EtatReserve) {
+				System.out.println("Votre réservation "+reservation.getNumero()+" a été confirmée.");
+			}
+			else if (newPlace.getEtat() instanceof EtatConfirme) {
+				System.out.println("Votre réservation "+reservation.getNumero()+" a été modifiée.");
+			}
+			else {
+				System.out.println("Votre réservation "+reservation.getNumero()+" a été annulée.");
+			}
+			db.setReservation(reservation);
+		}
+		// Si la reservation n'est pas dans la base de donnee, on ajoute une reservation pour le client
+		else if (reservation.getClient().equals(this)) {
+			System.out.println("Votre réservation a été ajoutée. Voici votre numéro de réservation: "+reservation.getNumero());
+			//db.setReservation(reservation);
+		}
+	}
+	
+	@Override
+	public void update(Compagnie compagnie) {
+		//db.setCompagnie(compagnie);
+	}
+	
+	@Override
+	public void update(Station station) {
+		//db.setStation(station);
+	}
+	
+	@Override
+	public void update(Itineraire itineraire) {
+		//db.setItineraire(itineraire);
 	}
 	
 	//Patron de visiteur:
