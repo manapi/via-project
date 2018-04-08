@@ -7,7 +7,7 @@ import java.util.List;
 import misc.Visitable;
 import misc.Visitor;
 
-public abstract class Place implements Visitable {
+public abstract class Place {
 
 	protected Etat etat;
 	protected Section section;
@@ -51,7 +51,7 @@ public abstract class Place implements Visitable {
 	}
 	
 	
-	public abstract void accept(Visitor visitor);
+//	public abstract void accept(Visitor visitor);
 	
 
 }

@@ -18,6 +18,7 @@ import commande.SupprimerStation;
 import core.Compagnie;
 import core.FabriqueEntiteVoyage;
 import core.Itineraire;
+import core.Place;
 import core.Section;
 import core.Station;
 import interfaceCroisiere.Cabine;
@@ -195,35 +196,44 @@ public class Administrateur implements Observer, Visitor {
 		@Override
 		public void visit(Vol vol) {
 			affichageAvion=affichageAvion+(vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")";
-			rapport=rapport+(vol.getrapportSiegesReserves(section));
+			section=""+(vol.getSection());
+			List<Place> tempList=vol.getPlacesDisponibles(section);
+			int siegesReserves=vol.getNombrePlaces(section) - tempList.size();
+			rapport="("+(siegesReserves)+"/"+(vol.getNombrePlaces(section))+")";
 		}
 
 		@Override
 		public void visit(ItineraireTrain itineraireTrain) {
 			affichageTrain=affichageTrain+(itineraireTrain.getArrets())+":"+"["+(itineraireTrain.getCompagnie())+"]"+(itineraireTrain.getId())+"("+(itineraireTrain.getDateDepart())+"-"+(itineraireTrain.getDateArrivee())+")";
-			rapport=rapport+(itineraireTrain.getrapportSiegesReserves(section));
+			section=""+(itineraireTrain.getSection());
+			List<Place> tempList=itineraireTrain.getPlacesDisponibles(section);
+			int siegesReserves=itineraireTrain.getNombrePlaces(section) - tempList.size();
+			rapport="("+(siegesReserves)+"/"+(itineraireTrain.getNombrePlaces(section))+")";
 		}
 
 		@Override
 		public void visit(ItineraireCroisiere itineraireCroisiere) {
 			affichageBateau=affichageBateau+(itineraireCroisiere.getArrets())+":"+"["+(itineraireCroisiere.getCompagnie())+"]"+(itineraireCroisiere.getId())+"("+(itineraireCroisiere.getDateDepart())+"-"+(itineraireCroisiere.getDateArrivee())+")";
-			rapport=rapport+(itineraireCroisiere.getrapportSiegesReserves(section));
+			section=""+(itineraireCroisiere.getSection());
+			List<Place> tempList=itineraireCroisiere.getPlacesDisponibles(section);
+			int siegesReserves=itineraireCroisiere.getNombrePlaces(section) - tempList.size();
+			rapport="("+(siegesReserves)+"/"+(itineraireCroisiere.getNombrePlaces(section))+")";
 		}
 		
-		@Override
-		public void visit(SiegeAvion siegeAvion) {
-			section=section+(siegeAvion.getSection());
-		}
-
-		@Override
-		public void visit(Cabine cabine) {
-			section=section+(cabine.getSection());
-		}
-
-		@Override
-		public void visit(SiegeTrain siegeTrain) {
-			section=section+(siegeTrain.getSection());
-		}
+//		@Override
+//		public void visit(SiegeAvion siegeAvion) {
+//			section=section+(siegeAvion.getSection());
+//		}
+//
+//		@Override
+//		public void visit(Cabine cabine) {
+//			section=section+(cabine.getSection());
+//		}
+//
+//		@Override
+//		public void visit(SiegeTrain siegeTrain) {
+//			section=section+(siegeTrain.getSection());
+//		}
 
 		@Override
 		public void visit(SectionAvion sectionAvion) {

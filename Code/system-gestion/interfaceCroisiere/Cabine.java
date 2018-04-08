@@ -14,10 +14,10 @@ public class Cabine extends Place {
 		
 	}
 
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-		
-	}
+//	@Override
+//	public void accept(Visitor visitor) {
+//		visitor.visit(this);
+//		
+//	}
 	
 }

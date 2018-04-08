@@ -20,11 +20,11 @@ public class ItineraireCroisiere extends Itineraire {
 			super(id, dateDepart, dateArrivee, compagnie, arrets);
 			paquebot = new Paquebot();
 			
-			this.arrets=arrets;
-			this.compagnie=compagnie;
-			this.id=id;
-			this.dateDepart=dateDepart;
-			this.dateArrivee=dateArrivee;
+//			this.arrets=arrets;
+//			this.compagnie=compagnie;
+//			this.id=id;
+//			this.dateDepart=dateDepart;
+//			this.dateArrivee=dateArrivee;
 	}
 
 	@Override

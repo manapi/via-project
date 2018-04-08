@@ -20,9 +20,9 @@ public interface Visitor {
 	void visit(ItineraireTrain itineraireTrain);
 	void visit(ItineraireCroisiere itineraireCroisiere);
 	
-	void visit(SiegeAvion siegeAvion);
-	void visit(Cabine cabine);
-	void visit(SiegeTrain siegeTrain);
+//	void visit(SiegeAvion siegeAvion);
+//	void visit(Cabine cabine);
+//	void visit(SiegeTrain siegeTrain);
 	
 	void visit(SectionAvion sectionAvion);
 	void visit(SectionTrain sectionTrain);

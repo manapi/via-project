@@ -24,10 +24,10 @@ public class SiegeTrain extends Place {
 		}
 	}
 
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-		
-	}
+//	@Override
+//	public void accept(Visitor visitor) {
+//		visitor.visit(this);
+//		
+//	}
 
 }

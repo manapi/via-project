@@ -20,6 +20,9 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 	protected Map<String, List<Place>> places;
 	protected List<Station> arrets;
 	
+	//TO FIX ALONG WITH getSection():
+	protected Section section;
+	
 	public Itineraire(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
 		super(id);
 		this.dateDepart = dateDepart;
@@ -47,7 +50,10 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 
 	//public abstract void addSection(Section section);
 	
-	
+	public Section getSection(){
+		//TODO
+		return section;
+	}
 	
 	public Date getDateDepart() {
 		return dateDepart;
@@ -99,37 +105,39 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 		return dispos;
 	}
 	
-	public String getrapportSiegesReserves(String section) {
-		int totalSiege=0;
-		int siegeReserve=0;
-		int siegeDispo=0;
-		String resultRapport="";
-		if(places.containsKey(section)) {
-			for(Place place : places.get(section)) {
-				totalSiege++;
-				if(true /*place is disponible*/) {
-					siegeDispo++;
-				}
-			}
-		}
-		siegeReserve=totalSiege-siegeDispo;
-		resultRapport=resultRapport+"("+Integer.toString(siegeReserve)+"/"+Integer.toString(totalSiege)+")";
-		
-		return resultRapport;
-	}
+//	public String getrapportSiegesReserves(String section) {
+//		int totalSiege=0;
+//		int siegeReserve=0;
+//		int siegeDispo=0;
+//		String resultRapport="";
+//		if(places.containsKey(section)) {
+//			for(Place place : places.get(section)) {
+//				totalSiege++;
+//				if(true /*place is disponible*/) {
+//					siegeDispo++;
+//				}
+//			}
+//		}
+//		siegeReserve=totalSiege-siegeDispo;
+//		resultRapport=resultRapport+"("+Integer.toString(siegeReserve)+"/"+Integer.toString(totalSiege)+")";
+//		
+//		return resultRapport;
+//	}
 	
-	public String getQuantiteSiegesDispo(String section) {
-		int siegeDispo=0;
-		String resultQuantite="";
-		if(places.containsKey(section)) {
-			for(Place place : places.get(section)) {
-				if(true /*place is disponible*/) {
-					siegeDispo++;
-				}
-			}
-		}
-		resultQuantite=Integer.toString(siegeDispo);
-		
-		return resultQuantite;
-	}
+
+	
+//	public String getQuantiteSiegesDispo(String section) {
+//		int siegeDispo=0;
+//		String resultQuantite="";
+//		if(places.containsKey(section)) {
+//			for(Place place : places.get(section)) {
+//				if(true /*place is disponible*/) {
+//					siegeDispo++;
+//				}
+//			}
+//		}
+//		resultQuantite=Integer.toString(siegeDispo);
+//		
+//		return resultQuantite;
+//	}
 }
