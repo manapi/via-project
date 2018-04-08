@@ -276,13 +276,13 @@ public class Administrateur implements Observer, Visitor {
 
 
 	//Patron de visiteur:
-		public String affichageAvion="";
+		/*public String affichageAvion="";
 		public String affichageTrain="";
 		public String affichageBateau="";
 		public String section="";
 		public String disposition="";
 		public String prix="";
-		public String rapport="";
+		public String rapport="";*/
 		StringBuilder sb;
 		
 		@Override
@@ -307,8 +307,8 @@ public class Administrateur implements Observer, Visitor {
 		}
 		
 		
-		@Override
-		public void visit(Vol vol) {
+		//@Override
+		/*public void visit(Vol vol) {
 			affichageAvion=affichageAvion+(vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")";
 			//section=""+(vol.getSection());
 			List<Place> tempList=vol.getPlacesDisponibles(section);
@@ -332,7 +332,7 @@ public class Administrateur implements Observer, Visitor {
 			List<Place> tempList=itineraireCroisiere.getPlacesDisponibles(section);
 			int siegesReserves=itineraireCroisiere.getNombrePlaces(section) - tempList.size();
 			rapport="("+(siegesReserves)+"/"+(itineraireCroisiere.getNombrePlaces(section))+")";
-		}
+		}*/
 		
 //		@Override
 //		public void visit(SiegeAvion siegeAvion) {
@@ -349,22 +349,22 @@ public class Administrateur implements Observer, Visitor {
 //			section=section+(siegeTrain.getSection());
 //		}
 
-		@Override
-		public void visit(SectionAvion sectionAvion) {
-			disposition=disposition+(sectionAvion.getDisposition());;
-			prix=prix+(sectionAvion.getPourcentageTarif());
+		/*@Override
+		/*public void visit(SectionAvion sectionAvion) {
+		//	disposition=disposition+(sectionAvion.getDisposition());;
+		//	prix=prix+(sectionAvion.getPourcentageTarif());
 
 		}
 
 		@Override
 		public void visit(SectionTrain sectionTrain) {
-			disposition=disposition+(sectionTrain.getDisposition());
-			prix=prix+(sectionTrain.getPourcentageTarif());
+		//	disposition=disposition+(sectionTrain.getDisposition());
+		//	prix=prix+(sectionTrain.getPourcentageTarif());
 		}
 
 		@Override
 		public void visit(SectionPaquebot sectionPaquebot) {
-			prix=prix+(sectionPaquebot.getPourcentageTarif());
-		}
+		//	prix=prix+(sectionPaquebot.getPourcentageTarif());
+		}*/
 		
 }

@@ -2,15 +2,10 @@ package core;
 import misc.Visitable;
 import misc.Visitor;
 
-public abstract class Section implements Visitable {
+public abstract class Section {
 
 	protected int pourcentageTarif;
 
-	/**
-	 * 
-	 * @param visitor
-	 */
-	public abstract void accept(Visitor visitor);
 
 
 	

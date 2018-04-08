@@ -21,10 +21,7 @@ public abstract class SectionPaquebot extends Section {
 	public void setNombreCabines(int nbCabines) {
 		this.nbCabines = nbCabines;
 	}
-	
-	public void accept(Visitor visitor){
-		visitor.visit(this);
-	}
+
 	
 	public String getTypeDispo() {
 		return this.getType();

@@ -245,7 +245,7 @@ public int reserver(Place place) {
 		+ "-" + df.format(itineraire.getDateArrivee()) + ")");
 	}
 	
-	public void visit(Itineraire itineraire, String type) {
+	private void visit(Itineraire itineraire, String type) {
 		for(Section section : itineraire.getSectionList()) {
 			if(section.getType().equalsIgnoreCase(type)) {
 				sb.append("|" + itineraire.getPrixSection(type));
@@ -256,7 +256,7 @@ public int reserver(Place place) {
 	}
 	
 	
-	@Override
+	/*@Override
 	public void visit(Vol vol) {
 		//sb.append((vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")")
 		
@@ -267,9 +267,9 @@ public int reserver(Place place) {
 		}
 
 		
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void visit(ItineraireTrain itineraireTrain) {
 		affichageTrain=""+(itineraireTrain.getArrets())+":"+"["+(itineraireTrain.getCompagnie())+"]"+(itineraireTrain.getId())+"("+(itineraireTrain.getDateDepart())+"-"+(itineraireTrain.getDateArrivee())+")";
 		//section=""+(itineraireTrain.getSection());
@@ -302,6 +302,6 @@ public int reserver(Place place) {
 	public void visit(SectionPaquebot sectionPaquebot) {
 		prix=""+(sectionPaquebot.getPourcentageTarif());
 	}
-	
+	*/
 
 }

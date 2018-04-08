@@ -38,10 +38,7 @@ public abstract class SectionTrain extends Section {
 	public int getNombrePlaces() {
 		return disposition.getNombreColonne() * nombreRangees;
 	}
-	
-	public void accept(Visitor visitor){
-		visitor.visit(this);
-	}
+
 	
 	public String getTypeDispo() {
 		return this.getType() + disposition.getType();
