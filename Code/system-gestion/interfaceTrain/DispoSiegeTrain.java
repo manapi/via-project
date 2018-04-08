@@ -7,4 +7,6 @@ public abstract class DispoSiegeTrain {
 	public int getNombreColonne() {
 		return nombreColonnes;
 	}
+	
+	public abstract String getType();
 }

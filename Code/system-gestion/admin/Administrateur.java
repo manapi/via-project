@@ -1,4 +1,5 @@
 package admin;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +59,30 @@ public class Administrateur implements Observer, Visitor {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String consulterItinerairesParCompagnie(String compagnie) {
+		sb = new StringBuilder();
+		for(Itineraire itin : db.getAllItineraires()) {
+			if(itin.getCompagnie().getId().equalsIgnoreCase(compagnie)) {
+				visit(itin);
+			}
+		}
+		return sb.toString();
+	}
+	
+	public String consulterItinerairesParStation(String station) {
+		sb = new StringBuilder();
+		for(Itineraire itin : db.getAllItineraires()) {
+			for(Station arret : itin.getArrets()) {
+				if(arret.getId().equalsIgnoreCase(station)) {
+					visit(itin);
+					break;
+				}
+			}
+		}
+		return sb.toString();
+	}
+	
 	public void creerCompagnieAerienne(String id) {
 		lastCmd = new CreerCompagnie(db, FabriqueEntiteVoyageAvion.getInstance(), id);
 		lastCmd.execute();
@@ -192,11 +217,34 @@ public class Administrateur implements Observer, Visitor {
 		public String disposition="";
 		public String prix="";
 		public String rapport="";
-
+		StringBuilder sb;
+		
+		@Override
+		public void visit(Itineraire itineraire) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd:HH:mm");
+			List<Station> stations = itineraire.getArrets();
+			for(int i=0; i<stations.size(); i++) {
+				sb.append(stations.get(i).getId());
+				if(i<stations.size()-1) {
+					sb.append("-");
+				}
+			}
+			sb.append(":[" + itineraire.getCompagnie().getId() + "]" + itineraire.getId() + "(" + df.format(itineraire.getDateDepart()) 
+			+ "-" + df.format(itineraire.getDateArrivee()) + ")");
+			for(Section section : itineraire.getSectionList()) {
+				sb.append("|" + section.getTypeDispo() + "(");
+				sb.append(itineraire.getNombrePlaces(section.getType()) - itineraire.getPlacesDisponibles(section.getType()).size());
+				sb.append("/" + itineraire.getNombrePlaces(section.getType()) + ")");
+				sb.append(itineraire.getPrixSection(section.getType()));
+			}
+			sb.append("\n");
+		}
+		
+		
 		@Override
 		public void visit(Vol vol) {
 			affichageAvion=affichageAvion+(vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")";
-			section=""+(vol.getSection());
+			//section=""+(vol.getSection());
 			List<Place> tempList=vol.getPlacesDisponibles(section);
 			int siegesReserves=vol.getNombrePlaces(section) - tempList.size();
 			rapport="("+(siegesReserves)+"/"+(vol.getNombrePlaces(section))+")";
@@ -205,7 +253,7 @@ public class Administrateur implements Observer, Visitor {
 		@Override
 		public void visit(ItineraireTrain itineraireTrain) {
 			affichageTrain=affichageTrain+(itineraireTrain.getArrets())+":"+"["+(itineraireTrain.getCompagnie())+"]"+(itineraireTrain.getId())+"("+(itineraireTrain.getDateDepart())+"-"+(itineraireTrain.getDateArrivee())+")";
-			section=""+(itineraireTrain.getSection());
+			//section=""+(itineraireTrain.getSection());
 			List<Place> tempList=itineraireTrain.getPlacesDisponibles(section);
 			int siegesReserves=itineraireTrain.getNombrePlaces(section) - tempList.size();
 			rapport="("+(siegesReserves)+"/"+(itineraireTrain.getNombrePlaces(section))+")";
@@ -214,7 +262,7 @@ public class Administrateur implements Observer, Visitor {
 		@Override
 		public void visit(ItineraireCroisiere itineraireCroisiere) {
 			affichageBateau=affichageBateau+(itineraireCroisiere.getArrets())+":"+"["+(itineraireCroisiere.getCompagnie())+"]"+(itineraireCroisiere.getId())+"("+(itineraireCroisiere.getDateDepart())+"-"+(itineraireCroisiere.getDateArrivee())+")";
-			section=""+(itineraireCroisiere.getSection());
+			//section=""+(itineraireCroisiere.getSection());
 			List<Place> tempList=itineraireCroisiere.getPlacesDisponibles(section);
 			int siegesReserves=itineraireCroisiere.getNombrePlaces(section) - tempList.size();
 			rapport="("+(siegesReserves)+"/"+(itineraireCroisiere.getNombrePlaces(section))+")";

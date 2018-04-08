@@ -22,5 +22,7 @@ public abstract class Section implements Visitable {
 	public abstract int getNombrePlaces();
 	
 	public abstract String getType();
+	
+	public abstract String getTypeDispo();
 
 }

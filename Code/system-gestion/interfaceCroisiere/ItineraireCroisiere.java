@@ -19,12 +19,6 @@ public class ItineraireCroisiere extends Itineraire {
 			
 			super(id, dateDepart, dateArrivee, compagnie, arrets);
 			paquebot = new Paquebot();
-			
-//			this.arrets=arrets;
-//			this.compagnie=compagnie;
-//			this.id=id;
-//			this.dateDepart=dateDepart;
-//			this.dateArrivee=dateArrivee;
 	}
 
 	@Override
@@ -61,6 +55,11 @@ public class ItineraireCroisiere extends Itineraire {
 	@Override
 	public int getNombrePlaces(String section) {
 		return paquebot.getNombrePlaces(section);
+	}
+
+	@Override
+	public List<Section> getSectionList() {
+		return paquebot.getSectionList();
 	}
 
 }

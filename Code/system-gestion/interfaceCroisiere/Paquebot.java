@@ -30,4 +30,8 @@ public class Paquebot {
 		}
 		return 0;
 	}
+	
+	public List<Section> getSectionList() {
+		return new ArrayList<Section>(sections);
+	}
 }

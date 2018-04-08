@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import core.Compagnie;
 import core.Itineraire;
+import core.Section;
 import core.Station;
 import interfaceCroisiere.CompagnieCroisiere;
 import interfaceCroisiere.ItineraireCroisiere;
@@ -15,7 +17,9 @@ import interfaceTrain.Gare;
 import interfaceTrain.ItineraireTrain;
 import interfaceTrain.LigneTrain;
 import interfaceVol.Aeroport;
+import interfaceVol.AirE;
 import interfaceVol.CompagnieAerienne;
+import interfaceVol.SectionAvion;
 import interfaceVol.Vol;
 import reservation.Reservation;
 
@@ -66,7 +70,10 @@ public class Database implements Subject {
 		arrets1.add(aeroport1);
 		arrets1.add(aeroport2);
 		Itineraire vol1 = new Vol("AC481", df.parse("2014.11.28:06:00"), df.parse("2014.11.28:07:24"), compAerienne1, arrets1);
-		
+		SectionAvion section = new AirE();
+		section.setDisposition("S");
+		section.setNombreRangees(10);
+		vol1.creerSection(section);
 		List<Station> arrets2 = new ArrayList<Station>();
 		arrets2.add(aeroport3);
 		arrets2.add(aeroport4);
@@ -309,6 +316,14 @@ public class Database implements Subject {
 	
 	public void removeItineraire(String id) {
 		itineraires.remove(id);
+	}
+	
+	public List<Itineraire> getAllItineraires() {
+		List<Itineraire> list = new ArrayList<Itineraire>();
+		for(Map.Entry<String, Itineraire> entry : itineraires.entrySet()) {
+			list.add(entry.getValue());
+		}
+		return list;
 	}
 
 }

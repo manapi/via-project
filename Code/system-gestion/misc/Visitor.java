@@ -1,4 +1,5 @@
 package misc;
+import core.Itineraire;
 import interfaceCroisiere.Cabine;
 import interfaceCroisiere.ItineraireCroisiere;
 import interfaceCroisiere.SectionPaquebot;
@@ -27,5 +28,6 @@ public interface Visitor {
 	void visit(SectionAvion sectionAvion);
 	void visit(SectionTrain sectionTrain);
 	void visit(SectionPaquebot sectionPaquebot);
+	void visit(Itineraire itineraire);
 
 }

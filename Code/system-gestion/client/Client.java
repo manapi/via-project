@@ -1,7 +1,11 @@
 package client;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
+import core.Itineraire;
 import core.Place;
+import core.Section;
+import core.Station;
 import interfaceCroisiere.Cabine;
 import interfaceCroisiere.ItineraireCroisiere;
 import interfaceCroisiere.SectionPaquebot;
@@ -32,6 +36,28 @@ public class Client implements Observer, Visitor {
 	
 	public Client(Database db) {
 	  this.db = db;
+	}
+	
+	public String consulterItineraires(String origine, String destination, String section) {
+		sb = new StringBuilder();
+
+		for(Itineraire itin : db.getAllItineraires()) {
+			boolean passByOrigin = false;
+			boolean passByDestination = false;
+			for(Station arret : itin.getArrets()) {
+				if(arret.getId().equalsIgnoreCase(origine)) {
+					passByOrigin = true;
+				}
+				if(passByOrigin && arret.getId().equalsIgnoreCase(destination)) {
+					passByDestination = true;
+				}
+			}
+			if(passByOrigin && passByDestination && !itin.getPlacesDisponibles(section).isEmpty()) {
+				visit(itin);
+				visit(itin, section);
+			}
+		}
+		return sb.toString();
 	}
 	
 	public void setClientInfo(String nom, String adresse, String courriel, String telephone, Date dateNaissance) {
@@ -106,25 +132,6 @@ public class Client implements Observer, Visitor {
 		db.removeReservation(noReservation);
 	}
 
-	
-
-//	
-//
-//	public void visitTrajet() {
-//		// TODO 
-//		
-//	}
-//
-//	public void visitCompagnie() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	public void visitSiege() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
 	@Override
 	public void update(Object arg) {
 		// TODO Auto-generated method stub
@@ -132,6 +139,8 @@ public class Client implements Observer, Visitor {
 	}
 	
 	//Patron de visiteur:
+	StringBuilder sb;
+	
 	public String affichageAvion;
 	public String affichageTrain;
 	public String affichageBateau;
@@ -140,19 +149,49 @@ public class Client implements Observer, Visitor {
 	public String prix;
 	public String quantiteDispo;
 
+	
+	@Override
+	public void visit(Itineraire itineraire) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd:HH:mm");
+		List<Station> stations = itineraire.getArrets();
+		for(int i=0; i<stations.size(); i++) {
+			sb.append(stations.get(i).getId());
+			if(i<stations.size()-1) {
+				sb.append("-");
+			}
+		}
+		sb.append(":[" + itineraire.getCompagnie().getId() + "]" + itineraire.getId() + "(" + df.format(itineraire.getDateDepart()) 
+		+ "-" + df.format(itineraire.getDateArrivee()) + ")");
+	}
+	
+	public void visit(Itineraire itineraire, String type) {
+		for(Section section : itineraire.getSectionList()) {
+			if(section.getType().equalsIgnoreCase(type)) {
+				sb.append("|" + itineraire.getPrixSection(type));
+				sb.append("|" + section.getType() + itineraire.getPlacesDisponibles(section.getType()).size());
+			}
+		}
+		sb.append("\n");
+	}
+	
+	
 	@Override
 	public void visit(Vol vol) {
-		affichageAvion=""+(vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")";
-		section=""+(vol.getSection());
-		List<Place> tempList=vol.getPlacesDisponibles(section);
-		quantiteDispo=""+(tempList.size());
+		//sb.append((vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")")
+		
+		//affichageAvion=""+(vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")";
+		for(Section section : vol.getSectionList()) {
+			visit((SectionAvion)section);
+			quantiteDispo=""+(vol.getPlacesDisponibles(section.getType()).size());
+		}
+
 		
 	}
 
 	@Override
 	public void visit(ItineraireTrain itineraireTrain) {
 		affichageTrain=""+(itineraireTrain.getArrets())+":"+"["+(itineraireTrain.getCompagnie())+"]"+(itineraireTrain.getId())+"("+(itineraireTrain.getDateDepart())+"-"+(itineraireTrain.getDateArrivee())+")";
-		section=""+(itineraireTrain.getSection());
+		//section=""+(itineraireTrain.getSection());
 		List<Place> tempList=itineraireTrain.getPlacesDisponibles(section);
 		quantiteDispo=""+ (tempList.size());
 	}
@@ -160,26 +199,10 @@ public class Client implements Observer, Visitor {
 	@Override
 	public void visit(ItineraireCroisiere itineraireCroisiere) {
 		affichageBateau=""+(itineraireCroisiere.getArrets())+":"+"["+(itineraireCroisiere.getCompagnie())+"]"+(itineraireCroisiere.getId())+"("+(itineraireCroisiere.getDateDepart())+"-"+(itineraireCroisiere.getDateArrivee())+")";
-		section=""+(itineraireCroisiere.getSection());
+		//section=""+(itineraireCroisiere.getSection());
 		List<Place> tempList=itineraireCroisiere.getPlacesDisponibles(section);
 		quantiteDispo=""+ (tempList.size());
 	}
-	
-	
-//	@Override
-//	public void visit(SiegeAvion siegeAvion) {
-//		section=section+(siegeAvion.getSection());
-//	}
-//
-//	@Override
-//	public void visit(Cabine cabine) {
-//		section=section+(cabine.getSection());
-//	}
-//
-//	@Override
-//	public void visit(SiegeTrain siegeTrain) {
-//		section=section+(siegeTrain.getSection());
-//	}
 
 	@Override
 	public void visit(SectionAvion sectionAvion) {

@@ -7,5 +7,7 @@ public abstract class DispoSiegeAvion {
 	public int getNombreColonne() {
 		return nombreColonnes;
 	}
+	
+	public abstract String getType();
 
 }

@@ -15,14 +15,7 @@ public class Vol extends Itineraire {
 	
 	public Vol(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
 		super(id, dateDepart, dateArrivee, compagnie, arrets);
-		avion = new Avion();
-//		
-//		this.arrets=arrets;
-//		this.compagnie=compagnie;
-//		this.id=id;
-//		this.dateDepart=dateDepart;
-//		this.dateArrivee=dateArrivee;
-		
+		avion = new Avion();		
 	}
 
 	@Override
@@ -62,6 +55,11 @@ public class Vol extends Itineraire {
 	@Override
 	public int getNombrePlaces(String section) {
 		return avion.getNombrePlaces(section);
+	}
+
+	@Override
+	public List<Section> getSectionList() {
+		return avion.getSectionList();
 	}
 	
 	

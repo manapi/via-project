@@ -54,4 +54,8 @@ public abstract class SectionAvion extends Section {
 		visitor.visit(this);
 	}
 	
+	public String getTypeDispo() {
+		return this.getType() + disposition.getType();
+	}
+	
 }

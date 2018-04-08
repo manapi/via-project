@@ -25,4 +25,8 @@ public abstract class SectionPaquebot extends Section {
 	public void accept(Visitor visitor){
 		visitor.visit(this);
 	}
+	
+	public String getTypeDispo() {
+		return this.getType();
+	}
 }

@@ -105,27 +105,28 @@ public class SytemeGestionReservation {
 	
 	private static void displayAdminMenu() {
 		System.out.println("Vue administrateur");
-		System.out.println("0. Consultation");
-		System.out.println("1. Creer aeroport");
-		System.out.println("2. Creer compagnie aerienne");
-		System.out.println("3. Creer vol");
-		System.out.println("4. Creer section avion");
-		System.out.println("5. Creer gare");
-		System.out.println("6. Creer ligne de train");
-		System.out.println("7. Creer itineraire de train");
-		System.out.println("8. Creer section train");
-		System.out.println("9. Creer port");
-		System.out.println("10. Creer compagnie de croisiere");
-		System.out.println("11. Creer itineraire de croisiere");
-		System.out.println("12. Creer section paquebot");
-		System.out.println("13. Modifier station");
-		System.out.println("14.  Modifier compagnie");
-		System.out.println("15. Modifier itineraire");
-		System.out.println("16. Supprimer station");
-		System.out.println("17. Supprimer compagnie");
-		System.out.println("18. Supprimer itineraire");
-		System.out.println("19. Assigner un prix");
-		System.out.println("20. Cancel (annule l'operation precedente)");
+		System.out.println("0. Consultation par station");
+		System.out.println("1. Consultation par compagnie");
+		System.out.println("2. Creer aeroport");
+		System.out.println("3. Creer compagnie aerienne");
+		System.out.println("4. Creer vol");
+		System.out.println("5. Creer section avion");
+		System.out.println("6. Creer gare");
+		System.out.println("7. Creer ligne de train");
+		System.out.println("8. Creer itineraire de train");
+		System.out.println("9. Creer section train");
+		System.out.println("10. Creer port");
+		System.out.println("11. Creer compagnie de croisiere");
+		System.out.println("12. Creer itineraire de croisiere");
+		System.out.println("13. Creer section paquebot");
+		System.out.println("14. Modifier station");
+		System.out.println("15.  Modifier compagnie");
+		System.out.println("16. Modifier itineraire");
+		System.out.println("17. Supprimer station");
+		System.out.println("18. Supprimer compagnie");
+		System.out.println("19. Supprimer itineraire");
+		System.out.println("20. Assigner un prix");
+		System.out.println("21. Cancel (annule l'operation precedente)");
 		
 		System.out.print(OPTION_PROMPT);
 		
@@ -136,9 +137,14 @@ public class SytemeGestionReservation {
 		try {
 			switch (scanner.nextInt()) {
 			case 0:
-				// TODO : display data
+				System.out.print("Id de la station : ");
+				System.out.println(admin.consulterItinerairesParStation(scanner.next()));
 				break;
 			case 1:
+				System.out.print("Id de la compagnie : ");
+				System.out.println(admin.consulterItinerairesParCompagnie(scanner.next()));
+				break;
+			case 2:
 				System.out.print("Id : ");
 				id = scanner.next();
 				System.out.print("Ville : ");
@@ -146,12 +152,12 @@ public class SytemeGestionReservation {
 				admin.creerAeroport(id, ville);
 				System.out.print("Aeroport cree!");
 				break;
-			case 2:
+			case 3:
 				System.out.print("Id : ");
 				admin.creerCompagnieAerienne(scanner.next());
 				System.out.print("Compagnie cree!");
 				break;
-			case 3:
+			case 4:
 				System.out.print("Id : ");
 				id = scanner.next();
 				System.out.print("Date depart (" + DATE_FORMAT + ": ");
@@ -167,7 +173,7 @@ public class SytemeGestionReservation {
 				admin.creerVol(id, dateDepart, dateArrivee, compagnie, aeroportDepart, aeroportArrivee);
 				System.out.print("Vol cree!");
 				break;
-			case 4:
+			case 5:
 				System.out.print("Id du vol : ");
 				id = scanner.next();
 				System.out.print("Type de section (F/A/P/E): ");
@@ -179,7 +185,7 @@ public class SytemeGestionReservation {
 				admin.creerSectionAvion(id, type, disposition, nbRangees);
 				System.out.print("Section cree!");
 				break;
-			case 5:
+			case 6:
 				System.out.print("Id : ");
 				id = scanner.next();
 				System.out.print("Ville : ");
@@ -187,12 +193,12 @@ public class SytemeGestionReservation {
 				admin.creerGare(id, ville);
 				System.out.print("Gare cree!");
 				break;
-			case 6:
+			case 7:
 				System.out.print("Id : ");
 				admin.creerLigneTrain(scanner.next());
 				System.out.print("Ligne cree!");
 				break;
-			case 7:
+			case 8:
 				System.out.print("Id : ");
 				id = scanner.next();
 				System.out.print("Date depart (" + DATE_FORMAT + ": ");
@@ -212,7 +218,7 @@ public class SytemeGestionReservation {
 				admin.creerItineraireTrain(id, dateDepart, dateArrivee, compagnie, gares);
 				System.out.print("Itineraire de train cree!");
 				break;
-			case 8:
+			case 9:
 				System.out.print("Id de l'itineraire : ");
 				id = scanner.next();
 				System.out.print("Type de section (P/E): ");
@@ -224,7 +230,7 @@ public class SytemeGestionReservation {
 				admin.creerSectionTrain(id, type, disposition, nbRangees);
 				System.out.print("Section cree!");
 				break;
-			case 9:
+			case 10:
 				System.out.print("Id : ");
 				id = scanner.next();
 				System.out.print("Ville : ");
@@ -232,12 +238,12 @@ public class SytemeGestionReservation {
 				admin.creerPort(id, ville);
 				System.out.print("Port cree!");
 				break;
-			case 10:
+			case 11:
 				System.out.print("Id : ");
 				admin.creerCompagnieCroisiere(scanner.next());
 				System.out.print("Ligne cree!");
 				break;
-			case 11:
+			case 12:
 				System.out.print("Id : ");
 				id = scanner.next();
 				System.out.print("Date depart (" + DATE_FORMAT + ": ");
@@ -257,7 +263,7 @@ public class SytemeGestionReservation {
 				admin.creerItineraireCroisiere(id, dateDepart, dateArrivee, compagnie, ports);
 				System.out.print("Itineraire de croisiere cree!");
 				break;
-			case 12:
+			case 13:
 				System.out.print("Id de l'itineraire : ");
 				id = scanner.next();
 				System.out.print("Type de section (I/O/S/F/D): ");
@@ -267,7 +273,7 @@ public class SytemeGestionReservation {
 				admin.creerSectionPaquebot(id, type, nbCabines);
 				System.out.print("Section cree!");
 				break;
-			case 13:
+			case 14:
 				System.out.print("Id de la station : ");
 				id = scanner.next();
 				System.out.print("Nouvel id : ");
@@ -278,7 +284,7 @@ public class SytemeGestionReservation {
 				;
 				System.out.print("Station modifiee!");
 				break;
-			case 14:
+			case 15:
 				System.out.print("Id de la compagnie : ");
 				id = scanner.next();
 				System.out.print("Nouvel id : ");
@@ -286,7 +292,7 @@ public class SytemeGestionReservation {
 				admin.modifierCompagnie(id, newId);
 				System.out.print("Compagnie modifiee!");
 				break;
-			case 15:
+			case 16:
 				System.out.print("Id de l'itineraire : ");
 				id = scanner.next();
 				System.out.print("Nouvel id : ");
@@ -307,25 +313,25 @@ public class SytemeGestionReservation {
 				admin.modifierItineraire(id, newId, dateDepart, dateArrivee, compagnie, arrets);
 				System.out.print("Itineraire modifiee!");
 				break;
-			case 16:
+			case 17:
 				System.out.print("Id de la station : ");
 				id = scanner.next();
 				admin.supprimerStation(id);
 				System.out.print("Station suprimee!");
 				break;
-			case 17:
+			case 18:
 				System.out.print("Id de la compagnie : ");
 				id = scanner.next();
 				admin.supprimerCompagnie(id);
 				System.out.print("Compagnie suprimee!");
 				break;
-			case 18:
+			case 19:
 				System.out.print("Id de l'itineraire : ");
 				id = scanner.next();
 				admin.supprimerItineraire(id);
 				System.out.print("Itineraire suprimee!");
 				break;
-			case 19:
+			case 20:
 				System.out.print("Id de l'itineraire : ");
 				id = scanner.next();
 				System.out.print("Id de l'itineraire : ");
@@ -333,7 +339,7 @@ public class SytemeGestionReservation {
 				admin.assignerPrix(id, prix);
 				System.out.print("Prix assigne!");
 				break;
-			case 20:
+			case 21:
 				admin.cancel();
 				System.out.print("Action precedente annulee!");
 				break;
@@ -361,7 +367,13 @@ public class SytemeGestionReservation {
 		try {
 			switch (scanner.nextInt()) {
 			case 0:
-				// TODO : display data
+				System.out.print("Station d'origine : ");
+				String idOrigine = scanner.next();
+				System.out.print("Station de destination : ");
+				String idDestination = scanner.next();
+				System.out.print("Classe (un charactère) : ");
+				String classe = scanner.next();
+				System.out.println(cli.consulterItineraires(idOrigine, idDestination, classe));
 				break;
 			case 1:
 				// TODO : display data and keep list of places

@@ -5,4 +5,10 @@ public class AirC extends DispoSiegeAvion {
 		this.nombreColonnes = 4;
 		this.positionAllee = "entre 2 et 3";
 	}
+
+	@Override
+	public String getType() {
+		return "C";
+	}
+
 }

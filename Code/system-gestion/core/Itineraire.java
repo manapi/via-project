@@ -20,9 +20,6 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 	protected Map<String, List<Place>> places;
 	protected List<Station> arrets;
 	
-	//TO FIX ALONG WITH getSection():
-	protected Section section;
-	
 	public Itineraire(String id, Date dateDepart, Date dateArrivee, Compagnie compagnie, List<Station> arrets) {
 		super(id);
 		this.dateDepart = dateDepart;
@@ -44,16 +41,24 @@ public abstract class Itineraire extends EntiteVoyage implements Visitable {
 		return prix;
 	}
 	
+	public double getPrixSection(String section) {
+		List<Section> list = this.getSectionList();
+		for(Section sec : list) {
+			if(sec.getType().equalsIgnoreCase(section)) {
+				double ceprix = this.prix;
+				double pct = sec.getPourcentageTarif();
+				double tarif = ceprix * (pct /100);
+				return tarif;
+			}
+		}
+		return -1;
+	}
+	
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
-
-	//public abstract void addSection(Section section);
 	
-	public Section getSection(){
-		//TODO
-		return section;
-	}
+	public abstract List<Section> getSectionList();
 	
 	public Date getDateDepart() {
 		return dateDepart;

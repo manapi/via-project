@@ -6,4 +6,9 @@ public class AirL extends DispoSiegeAvion {
 		this.nombreColonnes = 10;
 		this.positionAllee = "entre 3 et 4 et entre 7 et 8";
 	}
+	
+	@Override
+	public String getType() {
+		return "L";
+	}
 }
