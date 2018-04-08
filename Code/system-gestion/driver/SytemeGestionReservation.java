@@ -13,6 +13,7 @@ import client.Client;
 import core.Compagnie;
 import core.FabriqueEntiteVoyage;
 import core.Itineraire;
+import core.Place;
 import core.Station;
 import interfaceCroisiere.FabriqueEntiteVoyageBateau;
 import interfaceCroisiere.ItineraireCroisiere;
@@ -373,13 +374,22 @@ public class SytemeGestionReservation {
 				String idOrigine = scanner.next();
 				System.out.print("Station de destination : ");
 				String idDestination = scanner.next();
-				System.out.print("Classe (un charactère) : ");
+				System.out.print("Classe (un caractere) : ");
 				String classe = scanner.next();
 				System.out.println(cli.consulterItineraires(idOrigine, idDestination, classe));
 				break;
 			case 1:
-				// TODO : display data and keep list of places
-				// cli.reserver(place);
+				System.out.print("Id de l'itineraire : ");
+				String id = scanner.next();
+				System.out.print("Classe (un caractere) : ");
+				String section = scanner.next();
+				List<Place> places = cli.afficherPlacesDisponibles(id, section);
+				if(places.isEmpty()) {
+					System.out.println("Pas de places disponibles");
+				} else {
+					cli.reserver(places.get(0));
+					System.out.println("Place reservee!");
+				}
 				break;
 			case 2:
 				System.out.println("Entrer les informations client :");
@@ -425,10 +435,17 @@ public class SytemeGestionReservation {
 			case 3:
 				System.out.print("Entrer le numero de la reservation : ");
 				noReservation = scanner.nextInt();
-				System.out.print("Entrer l'index de la nouvelle place : ");
-				// TODO : get place from data
-				// cli.modifier(noReservation, newPlace);
-				System.out.print("Reservation modifiee!");
+				System.out.print("Entrer l'id du nouvel itineraire : ");
+				id = scanner.next();
+				System.out.print("Entrer la classe de la nouvelle place : ");
+				section = scanner.next();
+				List<Place> nvplaces = cli.afficherPlacesDisponibles(id, section);
+				if(nvplaces.isEmpty()) {
+					System.out.println("Pas de places disponibles");
+				} else {
+					cli.modifier(noReservation, nvplaces.get(0));
+					System.out.print("Reservation modifiee!");
+				}
 				break;
 			case 4:
 				System.out.print("Entrer le numero de la reservation : ");

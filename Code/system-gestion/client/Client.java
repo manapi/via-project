@@ -146,12 +146,16 @@ public int reserver(Place place) {
 			else if (newPrix < oldPrix){
 				carteCredit.rembourser(montant);
 			}
+			EtatDisponible etatDispo = new EtatDisponible();
+			etatDispo.setEtat(reservation.getPlace());
 			EtatConfirme etatConfirme = new EtatConfirme();
 			etatConfirme.setEtat(newPlace);
 			reservation.setPlace(newPlace);
 		}
 		// Verifie si la reservation est dans la base de donnees et si la place est reservee
 		else if (reservation != null && reservation.getPlace().getEtat() instanceof EtatReserve) {
+			EtatDisponible etatDispo = new EtatDisponible();
+			etatDispo.setEtat(reservation.getPlace());
 			EtatReserve etatReserve = new EtatReserve();
 			etatReserve.setEtat(newPlace);
 			reservation.setPlace(newPlace);
@@ -179,6 +183,11 @@ public int reserver(Place place) {
 			db.removeReservation(noReservation);
 		}
 	}
+	
+	// M�thode pour afficher les places dans le UI
+	public List<Place> afficherPlacesDisponibles(String id, String section) {
+		return db.getItineraire(id).getPlacesDisponibles(section);
+	}
 
 	public void update(Reservation reservation) {
 		
@@ -195,7 +204,7 @@ public int reserver(Place place) {
 			else {
 				System.out.println("Votre réservation "+reservation.getNumero()+" a été annulée.");
 			}
-			db.setReservation(reservation);
+			//db.setReservation(reservation);
 		}
 		// Si la reservation n'est pas dans la base de donnee, on ajoute une reservation pour le client
 		else if (reservation.getClient().equals(this)) {

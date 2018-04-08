@@ -18,6 +18,7 @@ import interfaceTrain.ItineraireTrain;
 import interfaceTrain.LigneTrain;
 import interfaceVol.Aeroport;
 import interfaceVol.AirE;
+import interfaceVol.AirP;
 import interfaceVol.CompagnieAerienne;
 import interfaceVol.SectionAvion;
 import interfaceVol.Vol;
@@ -80,7 +81,11 @@ public class Database implements Subject {
 		arrets2.add(aeroport3);
 		arrets2.add(aeroport4);
 		Itineraire vol2 = new Vol("JA502", df.parse("2017.12.01:11:00"), df.parse("2017.12.02:01:00"), compAerienne2, arrets2);
-	
+		SectionAvion section2 = new AirP();
+		section2.setDisposition("L");
+		section2.setNombreRangees(20);
+		vol2.creerSection(section2);
+		
 		List<Station> arrets3 = new ArrayList<Station>();
 		arrets3.add(aeroport5);
 		arrets3.add(aeroport1);

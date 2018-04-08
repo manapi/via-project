@@ -1,4 +1,5 @@
 package interfaceVol;
+import core.Itineraire;
 import core.Place;
 import misc.Visitor;
 
@@ -7,8 +8,8 @@ public class SiegeAvion extends Place {
 	private int rangee;
 	private String colonne;
 
-	public SiegeAvion(int rangee, int colonne, SectionAvion section) {
-		super(section);
+	public SiegeAvion(int rangee, int colonne, SectionAvion section, Itineraire itin) {
+		super(section, itin);
 		
 		this.rangee = rangee;
 		switch(colonne) {

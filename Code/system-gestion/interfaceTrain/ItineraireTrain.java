@@ -45,7 +45,7 @@ public class ItineraireTrain extends Itineraire {
 			List<Place> sieges = new ArrayList<Place>();
 			for(int i=0; i < secTrain.getNombreRangees(); i++) {
 				for(int j=0; j< secTrain.getNombreColonnes(); j++) {
-					sieges.add(new SiegeTrain(i, j, secTrain));
+					sieges.add(new SiegeTrain(i, j, secTrain, this));
 				}
 			}
 			places.put(section.getType(), sieges);

@@ -14,9 +14,10 @@ public abstract class Place {
 	protected Itineraire itineraire;
 
 	
-	protected Place(Section section) {
+	protected Place(Section section, Itineraire itineraire) {
 		this.section = section;
 		etat = new EtatDisponible();
+		this.itineraire = itineraire;
 	}
 
 	public Etat getEtat() {

@@ -36,7 +36,7 @@ public class ItineraireCroisiere extends Itineraire {
 			//Creer places
 			List<Place> cabines = new ArrayList<Place>();
 			for(int i=0; i < secPaq.getNombrePlaces(); i++) {
-				cabines.add(new Cabine(i, secPaq));
+				cabines.add(new Cabine(i, secPaq, this));
 			}
 			places.put(section.getType(), cabines);
 		}

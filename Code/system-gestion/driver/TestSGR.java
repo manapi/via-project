@@ -17,10 +17,10 @@ public class TestSGR {
 		a.creerCompagnieAerienne("AV123");
 		a.creerAeroport("A1242334", "MTL");
 		FabriqueEntiteVoyageAvion f = FabriqueEntiteVoyageAvion.getInstance();
-		SiegeAvion sa = new SiegeAvion(1,2,new AirE());
+		//SiegeAvion sa = new SiegeAvion(1,2,new AirE());
 		Client c = new Client(db);
-		c.reserver(sa);
-		System.out.println(sa.getEtat() instanceof EtatDisponible);
+		//c.reserver(sa);
+		//System.out.println(sa.getEtat() instanceof EtatDisponible);
 
 	}
 
