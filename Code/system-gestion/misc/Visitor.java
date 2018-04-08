@@ -12,6 +12,6 @@ import interfaceVol.Vol;
 
 public interface Visitor {
 
-	void visit(Itineraire itineraire);
+	String visit(Itineraire itineraire);
 
 }

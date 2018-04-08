@@ -44,9 +44,8 @@ public class Client implements Observer, Visitor {
 	  this.db = db;
 	}
 	
-	public String consulterItineraires(String origine, String destination, String section) {
-		sb = new StringBuilder();
-
+	public List<Itineraire> consulterItineraires(String origine, String destination, String section) {
+		List<Itineraire> list = new ArrayList<Itineraire>();
 		for(Itineraire itin : db.getAllItineraires()) {
 			boolean passByOrigin = false;
 			boolean passByDestination = false;
@@ -59,11 +58,10 @@ public class Client implements Observer, Visitor {
 				}
 			}
 			if(passByOrigin && passByDestination && !itin.getPlacesDisponibles(section).isEmpty()) {
-				visit(itin);
-				visit(itin, section);
+				list.add(itin);
 			}
 		}
-		return sb.toString();
+		return list;
 	}
 	
 	public void setClientInfo(String nom, String adresse, String courriel, String telephone, Date dateNaissance) {
@@ -99,7 +97,7 @@ public int reserver(Place place) {
 		try {
 			return reservation.getNumero();
 		} catch(NullPointerException e) {
-			System.out.println("La place choisie est déjà réservée.");
+			System.out.println("La place choisie est deja� reservee.");
 			return 0;
 		}
 	}
@@ -228,20 +226,10 @@ public int reserver(Place place) {
 		//db.setItineraire(itineraire);
 	}
 	
-	//Patron de visiteur:
-	StringBuilder sb;
-	
-	public String affichageAvion;
-	public String affichageTrain;
-	public String affichageBateau;
-	public String section;
-	public String disposition;
-	public String prix;
-	public String quantiteDispo;
-
-	
 	@Override
-	public void visit(Itineraire itineraire) {
+	public String visit(Itineraire itineraire) {
+		StringBuilder sb = new StringBuilder();
+		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd:HH:mm");
 		List<Station> stations = itineraire.getArrets();
 		for(int i=0; i<stations.size(); i++) {
@@ -252,65 +240,12 @@ public int reserver(Place place) {
 		}
 		sb.append(":[" + itineraire.getCompagnie().getId() + "]" + itineraire.getId() + "(" + df.format(itineraire.getDateDepart()) 
 		+ "-" + df.format(itineraire.getDateArrivee()) + ")");
-	}
-	
-	private void visit(Itineraire itineraire, String type) {
 		for(Section section : itineraire.getSectionList()) {
-			if(section.getType().equalsIgnoreCase(type)) {
-				sb.append("|" + itineraire.getPrixSection(type));
+				sb.append("|" + itineraire.getPrixSection(section.getType()));
 				sb.append("|" + section.getType() + itineraire.getPlacesDisponibles(section.getType()).size());
-			}
 		}
 		sb.append("\n");
+		return sb.toString();
 	}
-	
-	
-	/*@Override
-	public void visit(Vol vol) {
-		//sb.append((vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")")
-		
-		//affichageAvion=""+(vol.getArrets())+":"+"["+(vol.getCompagnie())+"]"+(vol.getId())+"("+(vol.getDateDepart())+"-"+(vol.getDateArrivee())+")";
-		for(Section section : vol.getSectionList()) {
-			visit((SectionAvion)section);
-			quantiteDispo=""+(vol.getPlacesDisponibles(section.getType()).size());
-		}
-
-		
-	}*/
-
-	/*@Override
-	public void visit(ItineraireTrain itineraireTrain) {
-		affichageTrain=""+(itineraireTrain.getArrets())+":"+"["+(itineraireTrain.getCompagnie())+"]"+(itineraireTrain.getId())+"("+(itineraireTrain.getDateDepart())+"-"+(itineraireTrain.getDateArrivee())+")";
-		//section=""+(itineraireTrain.getSection());
-		List<Place> tempList=itineraireTrain.getPlacesDisponibles(section);
-		quantiteDispo=""+ (tempList.size());
-	}
-
-	@Override
-	public void visit(ItineraireCroisiere itineraireCroisiere) {
-		affichageBateau=""+(itineraireCroisiere.getArrets())+":"+"["+(itineraireCroisiere.getCompagnie())+"]"+(itineraireCroisiere.getId())+"("+(itineraireCroisiere.getDateDepart())+"-"+(itineraireCroisiere.getDateArrivee())+")";
-		//section=""+(itineraireCroisiere.getSection());
-		List<Place> tempList=itineraireCroisiere.getPlacesDisponibles(section);
-		quantiteDispo=""+ (tempList.size());
-	}
-
-	@Override
-	public void visit(SectionAvion sectionAvion) {
-		disposition=""+(sectionAvion.getDisposition());;
-		prix=""+(sectionAvion.getPourcentageTarif());
-
-	}
-
-	@Override
-	public void visit(SectionTrain sectionTrain) {
-		disposition=""+(sectionTrain.getDisposition());
-		prix=""+(sectionTrain.getPourcentageTarif());
-	}
-
-	@Override
-	public void visit(SectionPaquebot sectionPaquebot) {
-		prix=""+(sectionPaquebot.getPourcentageTarif());
-	}
-	*/
 
 }

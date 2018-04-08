@@ -136,16 +136,22 @@ public class SytemeGestionReservation {
 		String id, ville, compagnie, type, disposition, newId;
 		int nbRangees, nbCabines;
 		Date dateDepart, dateArrivee;
-
+		List<Itineraire> list;
 		try {
 			switch (scanner.nextInt()) {
 			case 0:
 				System.out.print("Id de la station : ");
-				System.out.println(admin.consulterItinerairesParStation(scanner.next()));
+				list = admin.consulterItinerairesParStation(scanner.next());
+				for(Itineraire itin : list) {
+					System.out.println(admin.visit(itin));
+				}
 				break;
 			case 1:
 				System.out.print("Id de la compagnie : ");
-				System.out.println(admin.consulterItinerairesParCompagnie(scanner.next()));
+				list = admin.consulterItinerairesParCompagnie(scanner.next());
+				for(Itineraire itin : list) {
+					System.out.println(admin.visit(itin));
+				}
 				break;
 			case 2:
 				System.out.print("Id : ");
@@ -376,7 +382,10 @@ public class SytemeGestionReservation {
 				String idDestination = scanner.next();
 				System.out.print("Classe (un caractere) : ");
 				String classe = scanner.next();
-				System.out.println(cli.consulterItineraires(idOrigine, idDestination, classe));
+				List<Itineraire> list = cli.consulterItineraires(idOrigine, idDestination, classe);
+				for(Itineraire itin : list) {
+					System.out.println(cli.visit(itin));
+				}
 				break;
 			case 1:
 				System.out.print("Id de l'itineraire : ");
